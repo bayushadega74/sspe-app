@@ -61,7 +61,11 @@ st.markdown("""
 # ── API Key input ─────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### ⚙️ Konfigurasi API")
-    api_key = st.text_input("Anthropic API Key", type="password", placeholder="sk-ant-...")
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key:
+        api_key = st.text_input("Anthropic API Key", type="password", placeholder="sk-ant-...")
+    else:
+        st.success("✅ API Key terdeteksi otomatis")
     st.markdown("---")
     st.markdown("### 📖 Panduan")
     st.markdown("""
