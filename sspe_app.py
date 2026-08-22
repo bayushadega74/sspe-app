@@ -111,7 +111,7 @@ def refs_to_context(refs, limit=8):
     blocks = []
     for r in refs[:limit]:
         authors = ", ".join(r["authors"])
-        abstract = (r["abstract"] or "")[:600]
+        abstract = (r["abstract"] or "")[:2000]
         blocks.append(
             f"- {authors} ({r['year']}). {r['title']}. {r['venue']}. "
             f"DOI: {r['doi']}\n"
