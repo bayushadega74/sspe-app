@@ -57,23 +57,37 @@ RISIKO = ["Rendah", "Sedang", "Tinggi"]
 AKTIF = ["Aktif", "Stop"]
 FASILITAS = ["Air Hangat", "Makan/Minum"]
 
-HEADERS = ["No", "Nama Kolam", "Wilayah", "Alamat", "Harga Tiket", "Fasilitas", "Status Kerjasama",
-           "Biaya Kerjasama", "Bentuk Perjanjian", "Biaya Coach", "Biaya Pendamping",
-           "PIC Kolam (nama & kontak)", "Tingkat Risiko", "Catatan Keluhan", "Status Aktif"]
 R0, R1 = 5, 404   # data rows (400, same as source validations)
 T = "'Kolam Mitra'"
-def col(c, abs_=True):
-    return f"{T}!${c}${R0}:${c}${R1}"
 
-# ---------------------------------------------------------------- read source rows
+# ---------------------------------------------------------------- read source (columns located by header text)
 src = openpyxl.load_workbook(SRC, data_only=True)["Kolam Mitra"]
-assert [str(src.cell(4, i).value).strip() for i in range(1, 16)] == HEADERS, "source header layout changed"
+HEADERS = [str(src.cell(4, i).value).strip() for i in range(1, src.max_column + 1) if src.cell(4, i).value]
+NCOL = len(HEADERS)
+def L_(name):
+    return openpyxl.utils.get_column_letter(HEADERS.index(name) + 1)
+for must in ("Nama Kolam", "Wilayah", "Fasilitas", "Status Kerjasama", "Bentuk Perjanjian", "Biaya Coach",
+             "Biaya Pendamping", "PIC Kolam (nama & kontak)", "Catatan Keluhan", "Status Aktif"):
+    assert must in HEADERS, f"kolom '{must}' tidak ditemukan di sumber"
+HAS_RISK = "Tingkat Risiko" in HEADERS
+cNAMA, cWIL, cFAS, cKER, cPER, cBC, cBP, cPIC, cKEL, cAKT = (L_(n) for n in (
+    "Nama Kolam", "Wilayah", "Fasilitas", "Status Kerjasama", "Bentuk Perjanjian", "Biaya Coach",
+    "Biaya Pendamping", "PIC Kolam (nama & kontak)", "Catatan Keluhan", "Status Aktif"))
+cRIS = L_("Tingkat Risiko") if HAS_RISK else None
+# wilayah list: taken from the source dropdown on the Wilayah column when present
+for dv in openpyxl.load_workbook(SRC)["Kolam Mitra"].data_validations.dataValidation:
+    if str(dv.sqref).startswith(cWIL) and dv.formula1 and dv.formula1.startswith('"'):
+        WILAYAH = [x.strip() for x in dv.formula1.strip('"').split(",") if x.strip()]
+TITLE = str(src["A1"].value or "TWENTY SWIM - BUKU KOLAM MITRA").replace("—", "-").replace("  -  ", " - ")
+SUFFIX = TITLE.split("KOLAM MITRA", 1)[1].strip() if "KOLAM MITRA" in TITLE else ""
+def col(c):
+    return f"{T}!${c}${R0}:${c}${R1}"
 rows = []
 for r in range(5, src.max_row + 1):
     if src.cell(r, 2).value in (None, ""):
         continue
-    rows.append([src.cell(r, c).value for c in range(2, 16)])   # B..O (No is a formula in the output)
-print("pools read:", len(rows))
+    rows.append([src.cell(r, c).value for c in range(2, NCOL + 1)])   # B.. (No is a formula in the output)
+print("pools read:", len(rows), "| columns:", NCOL, "| risk column:", HAS_RISK, "| wilayah:", len(WILAYAH))
 
 wb = Workbook(); wb.remove(wb.active)
 
@@ -97,19 +111,27 @@ for c, w in {"A": 18, "C": 28, "E": 18, "G": 18, "I": 16, "K": 14, "M": 12}.item
 # ================================================================ Kolam Mitra (data)
 ws = wb.create_sheet("Kolam Mitra")
 ws.sheet_view.showGridLines = False
-widths = {"A": 5, "B": 30, "C": 16, "D": 36, "E": 22, "F": 20, "G": 24, "H": 18, "I": 15, "J": 16, "K": 15,
-          "L": 26, "M": 13, "N": 30, "O": 12}
-for c, w in widths.items(): ws.column_dimensions[c].width = w
-ws["A1"] = "TWENTY SWIM  -  BUKU KOLAM MITRA"; ws["A1"].font = font(14, True, NAVY)
+WID = {"No": 5, "Nama Kolam": 30, "Wilayah": 16, "Alamat": 36, "Harga Tiket": 22, "Fasilitas": 20, "Status Kerjasama": 24,
+       "Biaya Kerjasama": 18, "Bentuk Perjanjian": 15, "Biaya Coach": 16, "Biaya Pendamping": 15,
+       "PIC Kolam (nama & kontak)": 26, "Tingkat Risiko": 13, "Catatan Keluhan": 30, "Status Aktif": 12}
+CENTER_COLS = {"No", "Wilayah", "Bentuk Perjanjian", "Biaya Coach", "Biaya Pendamping", "Tingkat Risiko", "Status Aktif"}
+WRAP_COLS = {"Alamat", "Fasilitas", "PIC Kolam (nama & kontak)", "Catatan Keluhan"}
+for i, h in enumerate(HEADERS, start=1):
+    ws.column_dimensions[openpyxl.utils.get_column_letter(i)].width = WID.get(h, 16)
+ws["A1"] = TITLE.replace("TWENTY SWIM - ", "TWENTY SWIM  -  "); ws["A1"].font = font(14, True, NAVY)
 ws["A2"] = ("Data kolam + info internal kerjasama. Sel kuning = ada catatan keluhan. "
             "Sel abu-abu muda = kolom yang masih perlu dilengkapi. Kolom dropdown tinggal pilih.")
 ws["A2"].font = font(9, False, GRAY)
-ws["L2"] = "Terisi:"; ws["L2"].font = font(9, False, GRAY); ws["L2"].alignment = Alignment(horizontal="right")
-ws["M2"] = f"=COUNTA($B${R0}:$B${R1})"; ws["M2"].font = font(10, True, NAVY)
-ws["N2"] = "kolam"; ws["N2"].font = font(9, False, GRAY)
+tc = openpyxl.utils.get_column_letter(NCOL - 2)
+ws[f"{tc}2"] = "Terisi:"; ws[f"{tc}2"].font = font(9, False, GRAY); ws[f"{tc}2"].alignment = Alignment(horizontal="right")
+tc2 = openpyxl.utils.get_column_letter(NCOL - 1)
+ws[f"{tc2}2"] = f"=COUNTA($B${R0}:$B${R1})"; ws[f"{tc2}2"].font = font(10, True, NAVY)
+ws[f"{openpyxl.utils.get_column_letter(NCOL)}2"] = "kolam"; ws[f"{openpyxl.utils.get_column_letter(NCOL)}2"].font = font(9, False, GRAY)
 ws.row_dimensions[1].height = 22; ws.row_dimensions[4].height = 34
 for i, h in enumerate(HEADERS, start=1):
     c = ws.cell(4, i, h); c.font = font(10, True, "FFFFFF"); c.fill = fill(NAVY); c.alignment = CENTER; c.border = BORDER
+iALAMAT = HEADERS.index("Alamat") if "Alamat" in HEADERS else 1
+iPIC = HEADERS.index("PIC Kolam (nama & kontak)")
 for r in range(R0, R1 + 1):
     ws.cell(r, 1, f'=IF($B{r}<>"",ROW()-4,"")')
     idx = r - R0
@@ -117,28 +139,33 @@ for r in range(R0, R1 + 1):
         for j, v in enumerate(rows[idx], start=2):
             if v not in (None, ""):
                 ws.cell(r, j, v)
-    for j in range(1, 16):
+    for j, h in enumerate(HEADERS, start=1):
         c = ws.cell(r, j); c.font = font(10); c.border = BORDER
-        c.alignment = CENTER if j in (1, 3, 9, 10, 11, 13, 15) else (LEFT_WRAP if j in (4, 6, 12, 14) else LEFT)
+        c.alignment = CENTER if h in CENTER_COLS else (LEFT_WRAP if h in WRAP_COLS else LEFT)
     if idx < len(rows):
-        ws.row_dimensions[r].height = 30 if any(len(str(v or "")) > 34 for v in (rows[idx][2], rows[idx][12])) else 17
+        long_ = any(len(str(rows[idx][k] or "")) > 34 for k in (iALAMAT - 1, iPIC - 1))
+        ws.row_dimensions[r].height = 30 if long_ else 17
 ws.freeze_panes = "C5"
 
-for rng, ref in [("C", REF_WIL), ("G", REF_KER), ("I", REF_PER), ("J", REF_BC), ("K", REF_BP), ("M", REF_RIS), ("O", REF_AKT)]:
-    dv = DataValidation(type="list", formula1=f"={ref}", allow_blank=True, showErrorMessage=True,
+dv_map = [(cWIL, REF_WIL), (cKER, REF_KER), (cPER, REF_PER), (cBC, REF_BC), (cBP, REF_BP), (cAKT, REF_AKT)]
+if HAS_RISK: dv_map.append((cRIS, REF_RIS))
+for rng, ref_ in dv_map:
+    dv = DataValidation(type="list", formula1=f"={ref_}", allow_blank=True, showErrorMessage=True,
                         errorTitle="Pilihan tidak valid", error="Silakan pilih dari daftar dropdown.")
     ws.add_data_validation(dv); dv.add(f"{rng}{R0}:{rng}{R1}")
 
 cf = ws.conditional_formatting
-cf.add(f"N{R0}:N{R1}", FormulaRule(formula=[f'$N{R0}<>""'], fill=fill(KELUHAN_FILL)))
-cf.add(f"O{R0}:O{R1}", FormulaRule(formula=[f'$O{R0}="Aktif"'], fill=fill(GREEN_BG), font=Font(color=GREEN_TX, bold=True)))
-cf.add(f"O{R0}:O{R1}", FormulaRule(formula=[f'$O{R0}="Stop"'], fill=fill(RED_BG), font=Font(color=RED_TX, bold=True)))
-cf.add(f"M{R0}:M{R1}", FormulaRule(formula=[f'$M{R0}="Rendah"'], fill=fill(GREEN_BG), font=Font(color=GREEN_TX)))
-cf.add(f"M{R0}:M{R1}", FormulaRule(formula=[f'$M{R0}="Sedang"'], fill=fill(YEL_BG), font=Font(color=YEL_TX)))
-cf.add(f"M{R0}:M{R1}", FormulaRule(formula=[f'$M{R0}="Tinggi"'], fill=fill(RED_BG), font=Font(color=RED_TX)))
-for c in ("G", "I", "L", "M"):   # columns the guide asks to complete
+cf.add(f"{cKEL}{R0}:{cKEL}{R1}", FormulaRule(formula=[f'${cKEL}{R0}<>""'], fill=fill(KELUHAN_FILL)))
+cf.add(f"{cAKT}{R0}:{cAKT}{R1}", FormulaRule(formula=[f'${cAKT}{R0}="Aktif"'], fill=fill(GREEN_BG), font=Font(color=GREEN_TX, bold=True)))
+cf.add(f"{cAKT}{R0}:{cAKT}{R1}", FormulaRule(formula=[f'${cAKT}{R0}="Stop"'], fill=fill(RED_BG), font=Font(color=RED_TX, bold=True)))
+if HAS_RISK:
+    cf.add(f"{cRIS}{R0}:{cRIS}{R1}", FormulaRule(formula=[f'${cRIS}{R0}="Rendah"'], fill=fill(GREEN_BG), font=Font(color=GREEN_TX)))
+    cf.add(f"{cRIS}{R0}:{cRIS}{R1}", FormulaRule(formula=[f'${cRIS}{R0}="Sedang"'], fill=fill(YEL_BG), font=Font(color=YEL_TX)))
+    cf.add(f"{cRIS}{R0}:{cRIS}{R1}", FormulaRule(formula=[f'${cRIS}{R0}="Tinggi"'], fill=fill(RED_BG), font=Font(color=RED_TX)))
+need_cols = [cKER, cPER, cPIC] + ([cRIS] if HAS_RISK else [])
+for c in need_cols:   # columns the guide asks to complete
     cf.add(f"{c}{R0}:{c}{R1}", FormulaRule(formula=[f'AND($B{R0}<>"",{c}{R0}="")'], fill=fill(NEED_FILL)))
-cf.add(f"B{R0}:B{R1}", FormulaRule(formula=[f'$O{R0}="Stop"'], font=Font(color=GRAY, strike=True)))
+cf.add(f"B{R0}:B{R1}", FormulaRule(formula=[f'${cAKT}{R0}="Stop"'], font=Font(color=GRAY, strike=True)))
 ws.page_setup.orientation = "landscape"; ws.page_setup.fitToWidth = 1; ws.page_setup.fitToHeight = 0
 ws.sheet_properties.pageSetUpPr.fitToPage = True
 
@@ -146,7 +173,7 @@ ws.sheet_properties.pageSetUpPr.fitToPage = True
 wsX = wb.create_sheet("Data Dashboard")
 wsX["A1"] = "SUMBER DATA DASHBOARD - otomatis dari tab Kolam Mitra, jangan diubah manual"
 wsX["A1"].font = font(10, True, NAVY)
-TOTAL = f"COUNTA({col('B')})"
+TOTAL = f"COUNTA({col(cNAMA)})"
 
 def block(c, row, title, items, fmls, hdr2="Kolam"):
     ci = ord(c) - 64
@@ -161,39 +188,44 @@ def counts(c, items, cells_col, row0):
     return [f"=COUNTIF({col(c)},${cells_col}{row0+i})" for i in range(len(items))]
 
 wil0, wil1 = block("A", 3, "Wilayah", WILAYAH + ["(Belum diisi)"],
-                   counts("C", WILAYAH, "A", 4) + [f"={TOTAL}-SUM(B4:B{3+len(WILAYAH)})"])
+                   counts(cWIL, WILAYAH, "A", 4) + [f"={TOTAL}-SUM(B4:B{3+len(WILAYAH)})"])
 ker0, ker1 = block("D", 3, "Status Kerjasama", KERJASAMA + ["(Belum diisi)"],
-                   counts("G", KERJASAMA, "D", 4) + [f"={TOTAL}-SUM(E4:E{3+len(KERJASAMA)})"])
-ris0, ris1 = block("G", 3, "Tingkat Risiko", RISIKO + ["(Belum diisi)"],
-                   counts("M", RISIKO, "G", 4) + [f"={TOTAL}-SUM(H4:H{3+len(RISIKO)})"])
+                   counts(cKER, KERJASAMA, "D", 4) + [f"={TOTAL}-SUM(E4:E{3+len(KERJASAMA)})"])
+if HAS_RISK:
+    ris0, ris1 = block("G", 3, "Tingkat Risiko", RISIKO + ["(Belum diisi)"],
+                       counts(cRIS, RISIKO, "G", 4) + [f"={TOTAL}-SUM(H4:H{3+len(RISIKO)})"])
 per0, per1 = block("J", 3, "Bentuk Perjanjian", PERJANJIAN + ["(Belum diisi)"],
-                   counts("I", PERJANJIAN, "J", 4) + [f"={TOTAL}-SUM(K4:K{3+len(PERJANJIAN)})"])
+                   counts(cPER, PERJANJIAN, "J", 4) + [f"={TOTAL}-SUM(K4:K{3+len(PERJANJIAN)})"])
 biaya_items = ["Coach: Gratis", "Coach: Kena biaya", "Pendamping: Gratis", "Pendamping: Kena biaya"]
 bia0, bia1 = block("M", 3, "Biaya Coach & Pendamping", biaya_items,
-                   [f'=COUNTIF({col("J")},"Gratis")', f'=COUNTIF({col("J")},"Coach kena biaya")',
-                    f'=COUNTIF({col("K")},"Gratis")', f'=COUNTIF({col("K")},"Kena biaya")'])
+                   [f'=COUNTIF({col(cBC)},"Gratis")', f'=COUNTIF({col(cBC)},"Coach kena biaya")',
+                    f'=COUNTIF({col(cBP)},"Gratis")', f'=COUNTIF({col(cBP)},"Kena biaya")'])
 fas0, fas1 = block("P", 3, "Fasilitas", FASILITAS + ["(Tanpa catatan)"],
-                   [f'=COUNTIF({col("F")},"*Air Hangat*")', f'=COUNTIF({col("F")},"*Makan/Minum*")',
-                    f'={TOTAL}-COUNTA({col("F")})'])
+                   [f'=COUNTIF({col(cFAS)},"*Air Hangat*")', f'=COUNTIF({col(cFAS)},"*Makan/Minum*")',
+                    f'={TOTAL}-COUNTA({col(cFAS)})'])
 akt0, akt1 = block("S", 3, "Status Aktif", AKTIF + ["(Belum diisi)"],
-                   counts("O", AKTIF, "S", 4) + [f"={TOTAL}-SUM(T4:T{3+len(AKTIF)})"])
+                   counts(cAKT, AKTIF, "S", 4) + [f"={TOTAL}-SUM(T4:T{3+len(AKTIF)})"])
 kel0, kel1 = block("S", 9, "Keluhan", ["Ada catatan keluhan", "Tanpa keluhan"],
-                   [f"=COUNTA({col('N')})", f"={TOTAL}-COUNTA({col('N')})"])
+                   [f"=COUNTA({col(cKEL)})", f"={TOTAL}-COUNTA({col(cKEL)})"])
 wsX["S14"] = "Total kolam"; wsX["S14"].font = font(10, True); wsX["T14"] = f"={TOTAL}"; wsX["T14"].font = font(10, True)
 
 # per-wilayah summary table (COUNTIFS)
 wr = 16
-for k, h in enumerate(["Wilayah", "Kolam", "Aktif", "Stop", "Ada Keluhan", "Risiko Tinggi", "Tertulis"]):
+LAST_COL_NAME = "Risiko Tinggi" if HAS_RISK else "Tertulis"
+for k, h in enumerate(["Wilayah", "Kolam", "Aktif", "Stop", "Ada Keluhan", LAST_COL_NAME, "Coach Gratis"]):
     x = wsX.cell(wr, 1 + k, h); x.font = font(10, True, "FFFFFF"); x.fill = fill(NAVY)
 for i, w in enumerate(WILAYAH, start=1):
     r = wr + i
     wsX.cell(r, 1, w).font = font(10)
-    wsX.cell(r, 2, f"=COUNTIF({col('C')},$A{r})")
-    wsX.cell(r, 3, f'=COUNTIFS({col("C")},$A{r},{col("O")},"Aktif")')
-    wsX.cell(r, 4, f'=COUNTIFS({col("C")},$A{r},{col("O")},"Stop")')
-    wsX.cell(r, 5, f'=COUNTIFS({col("C")},$A{r},{col("N")},"?*")')
-    wsX.cell(r, 6, f'=COUNTIFS({col("C")},$A{r},{col("M")},"Tinggi")')
-    wsX.cell(r, 7, f'=COUNTIFS({col("C")},$A{r},{col("I")},"Tertulis")')
+    wsX.cell(r, 2, f"=COUNTIF({col(cWIL)},$A{r})")
+    wsX.cell(r, 3, f'=COUNTIFS({col(cWIL)},$A{r},{col(cAKT)},"Aktif")')
+    wsX.cell(r, 4, f'=COUNTIFS({col(cWIL)},$A{r},{col(cAKT)},"Stop")')
+    wsX.cell(r, 5, f'=COUNTIFS({col(cWIL)},$A{r},{col(cKEL)},"?*")')
+    if HAS_RISK:
+        wsX.cell(r, 6, f'=COUNTIFS({col(cWIL)},$A{r},{col(cRIS)},"Tinggi")')
+    else:
+        wsX.cell(r, 6, f'=COUNTIFS({col(cWIL)},$A{r},{col(cPER)},"Tertulis")')
+    wsX.cell(r, 7, f'=COUNTIFS({col(cWIL)},$A{r},{col(cBC)},"Gratis")')
     for k in range(2, 8): wsX.cell(r, k).font = font(10)
 WR0, WR1 = wr + 1, wr + len(WILAYAH)
 for c, w in {"A": 20, "B": 8, "D": 26, "E": 8, "G": 16, "H": 8, "J": 18, "K": 8, "M": 26, "N": 8, "P": 18, "Q": 8, "S": 20, "T": 8}.items():
@@ -211,7 +243,7 @@ wd.column_dimensions["S"].width = 2.2
 for r, h in {1: 7.5, 2: 36, 3: 15, 4: 9.75, 5: 18, 6: 21, 7: 21, 8: 15, 9: 9.75}.items():
     wd.row_dimensions[r].height = h
 wd.merge_cells("B2:R2")
-wd["B2"] = "TWENTY SWIM  -  DASHBOARD KOLAM MITRA"
+wd["B2"] = ("TWENTY SWIM  -  DASHBOARD KOLAM MITRA " + SUFFIX).strip()
 wd["B2"].font = font(17, True, "FFFFFF"); wd["B2"].fill = fill(NAVY)
 wd["B2"].alignment = Alignment(horizontal="left", vertical="center", indent=1)
 wd.merge_cells("B3:R3")
@@ -224,7 +256,8 @@ cards = [
     ("AKTIF", f"={X}!T{akt0}", "status kerjasama berjalan", GREEN_BG, GREEN_TX),
     ("STOP", f"={X}!T{akt0+1}", "kerjasama berhenti", RED_BG, RED_TX),
     ("ADA KELUHAN", f"={X}!T{kel0}", "kolam dengan catatan keluhan", YEL_BG, YEL_TX),
-    ("RISIKO TINGGI", f"={X}!H{ris0+2}", "kerjasama rapuh / perlu cadangan", ORG_BG, ORG_TX),
+    (("RISIKO TINGGI", f"={X}!H{ris0+2}", "kerjasama rapuh / perlu cadangan", ORG_BG, ORG_TX) if HAS_RISK else
+     ("PERJANJIAN TERTULIS", f"={X}!K{per0+1}", "kerjasama dengan perjanjian tertulis", ORG_BG, ORG_TX)),
     ("BELUM DILENGKAPI", f"={X}!E{ker1}", "status kerjasama masih kosong", BLUE_BG, BLUE_TX),
 ]
 for (c1, c2), (title, fml, sub, bg, tx) in zip(CARDS, cards):
@@ -296,9 +329,20 @@ dn.legend = Legend(); dn.legend.position = "r"; dn.legend.overlay = False; dn.le
 section(10, "SEBARAN & KERJASAMA")
 wd.add_chart(dn, "B11")
 wd.add_chart(bar("Status Kerjasama", ref("D", ker0, ker1, hdr=False), ref("E", ker0, ker1), NAVY, horizontal=True), "K11")
-section(27, "RISIKO & BIAYA")
-wd.add_chart(bar("Tingkat Risiko Kolam", ref("G", ris0, ris1, hdr=False), ref("H", ris0, ris1), NAVY, gap=110,
-               colors=["3E9D63", "C8A24B", "C25450", "9CA3AF"]), "B28")
+if HAS_RISK:
+    section(27, "RISIKO & BIAYA")
+    wd.add_chart(bar("Tingkat Risiko Kolam", ref("G", ris0, ris1, hdr=False), ref("H", ris0, ris1), NAVY, gap=110,
+                   colors=["3E9D63", "C8A24B", "C25450", "9CA3AF"]), "B28")
+else:
+    section(27, "STATUS PER WILAYAH & BIAYA")
+    ch = BarChart(); ch.type = "col"; ch.grouping = "clustered"; ch.gapWidth = 80; ch.overlap = 0
+    ch.add_data(Reference(wsX, min_col=3, max_col=4, min_row=wr, max_row=WR1), titles_from_data=True)
+    ch.set_categories(Reference(wsX, min_col=1, min_row=WR0, max_row=WR1))
+    for s_, c_ in zip(ch.series, ("3E9D63", "C25450")):
+        s_.graphicalProperties = GraphicalProperties(solidFill=c_); s_.graphicalProperties.line = LineProperties(noFill=True)
+    ch.dataLabels = labels(pos="outEnd"); style_chart(ch, "Kolam Aktif vs Stop per Wilayah", 12.6, 7.6); axes(ch)
+    ch.legend = Legend(); ch.legend.position = "b"; ch.legend.overlay = False; ch.legend.txPr = rich(800)
+    wd.add_chart(ch, "B28")
 wd.add_chart(bar("Biaya Coach & Pendamping", ref("M", bia0, bia1, hdr=False), ref("N", bia0, bia1), BLUE, gap=80,
                colors=["3E9D63", "C25450", "3E9D63", "C25450"]), "K28")
 section(44, "FASILITAS & PERJANJIAN")
@@ -308,7 +352,7 @@ wd.add_chart(bar("Bentuk Perjanjian", ref("J", per0, per1, hdr=False), ref("K", 
 
 # per-wilayah table on the dashboard
 section(61, "RINGKASAN PER WILAYAH")
-tbl_hdr = ["Wilayah", "Kolam", "Aktif", "Stop", "Ada Keluhan", "Risiko Tinggi"]
+tbl_hdr = ["Wilayah", "Kolam", "Aktif", "Stop", "Ada Keluhan", LAST_COL_NAME]
 tbl_cols = ["B", "E", "H", "K", "N", "Q"]
 wd.row_dimensions[62].height = 20
 for k, h in enumerate(tbl_hdr):
@@ -346,7 +390,7 @@ wd.sheet_properties.pageSetUpPr.fitToPage = True
 wp = wb.create_sheet("Panduan", 2)
 wp.sheet_view.showGridLines = False
 wp.column_dimensions["A"].width = 30; wp.column_dimensions["B"].width = 70
-wp["A1"] = "BUKU KOLAM MITRA  -  PANDUAN"; wp["A1"].font = font(14, True, NAVY); wp.row_dimensions[1].height = 22
+wp["A1"] = ("BUKU KOLAM MITRA " + SUFFIX + "  -  PANDUAN").replace("   ", "  "); wp["A1"].font = font(14, True, NAVY); wp.row_dimensions[1].height = 22
 def head(r, t):
     wp[f"A{r}"] = t; wp[f"A{r}"].font = font(11, True, NAVY); wp.row_dimensions[r].height = 20
 def item(r, a, b, fill_rgb=None):
@@ -361,7 +405,7 @@ item(4, "Status Kerjasama", "Pilih: Gratis (murid bayar tiket) / Member bulanan 
 item(5, "Biaya Kerjasama", "Isi nominal. Contoh: 'Rp2.000.000/bln' (member) atau '20%' (bagi hasil). Kosongkan kalau gratis.")
 item(6, "Bentuk Perjanjian", "Lisan atau Tertulis.", NEED_FILL)
 item(7, "PIC Kolam", "Nama & nomor kontak orang yang diurus di kolam itu.", NEED_FILL)
-item(8, "Tingkat Risiko", "Tinggi untuk kolam hotel yang manajemennya sering ganti / kerjasama rapuh.", NEED_FILL)
+if HAS_RISK: item(8, "Tingkat Risiko", "Tinggi untuk kolam hotel yang manajemennya sering ganti / kerjasama rapuh.", NEED_FILL)
 head(10, "YANG SUDAH TERISI")
 item(11, "Nama, Wilayah, Alamat, Harga Tiket, Fasilitas", "Dari website lokasi.")
 item(12, "Biaya Coach & Pendamping", "Dari catatan website.")
@@ -369,11 +413,11 @@ item(13, "Catatan Keluhan", "Dari evaluasi ortu. Sel otomatis kuning bila ada ca
 head(15, "ARTI WARNA")
 item(16, "Kuning (Catatan Keluhan)", "Ada catatan keluhan dari ortu.", KELUHAN_FILL)
 item(17, "Abu-abu muda", "Kolom masih kosong dan perlu dilengkapi.", NEED_FILL)
-item(18, "Hijau / Kuning / Merah (Risiko)", "Rendah / Sedang / Tinggi.", GREEN_BG)
+if HAS_RISK: item(18, "Hijau / Kuning / Merah (Risiko)", "Rendah / Sedang / Tinggi.", GREEN_BG)
 item(19, "Hijau / Merah (Status Aktif)", "Aktif / Stop. Nama kolam Stop dicoret.", RED_BG)
 head(21, "GUNA BUKU INI")
 item(22, "Beban biaya", "Lihat kolam mana yang membebani: bandingkan Biaya Kerjasama dengan seberapa sering dipakai.")
-item(23, "Deteksi risiko", "Kalau 1 kolam Risiko Tinggi tutup, berapa member/sesi yang goyah? Lihat kartu Risiko Tinggi di DASHBOARD.")
+item(23, "Deteksi risiko", "Kalau 1 kolam tutup, berapa member/sesi yang goyah? Lihat kartu Stop dan ringkasan per wilayah di DASHBOARD." if not HAS_RISK else "Kalau 1 kolam Risiko Tinggi tutup, berapa member/sesi yang goyah? Lihat kartu Risiko Tinggi di DASHBOARD.")
 item(24, "Tampung keluhan", "Keluhan kolam dari evaluasi jadi dasar pindah/diversifikasi kolam.")
 head(26, "CARA PAKAI")
 item(27, "Tab Kolam Mitra", "Satu-satunya tab yang diisi. Tambah kolam baru di baris kosong; nomor urut otomatis.")
