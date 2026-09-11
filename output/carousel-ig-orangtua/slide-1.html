@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<title>Slide 1 - Hook</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  /* Kanvas Instagram 1080 x 1350 px (rasio 4:5). Ekspor: screenshot area .slide pada 1080x1350. */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Lora", Georgia, serif; color: #0B2545; }
+  .slide { width: 1080px; height: 1350px; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 72px 80px 64px; background: #FFFFFF; }
+  .slide.dark { background: #0B2545; color: #FFFFFF; }
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .logo-box { background: #FFFFFF; border-radius: 18px; padding: 14px 20px; width: 250px; }
+  .logo { width: 100%; height: auto; display: block; }
+  .counter { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 42px; letter-spacing: 2px; color: #8DA9C4; }
+  .tag { display: inline-block; align-self: flex-start; font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 42px; letter-spacing: 3px; text-transform: uppercase; background: #F2C14E; color: #0B2545; border-radius: 14px; padding: 10px 26px; margin-bottom: 36px; }
+  h1 { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 76px; line-height: 1.12; margin: 0; }
+  h2 { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 68px; line-height: 1.12; margin: 0 0 12px; }
+  .kicker { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 42px; letter-spacing: 3px; text-transform: uppercase; color: #8DA9C4; margin-bottom: 18px; }
+  .body { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+  .wave { display: block; width: 100%; height: 40px; margin: 36px 0; }
+  ul.rules { list-style: none; margin: 0; padding: 0; }
+  ul.rules li { display: flex; gap: 30px; align-items: flex-start; font-size: 48px; line-height: 1.32; font-weight: 500; padding: 34px 0; border-top: 3px solid #D5E0EA; }
+  ul.rules li:first-child { border-top: 0; padding-top: 0; }
+  ul.rules .n { flex: 0 0 auto; font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 48px; color: #FFFFFF; background: #0B2545; width: 82px; height: 82px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  ul.rules .no { color: #C8553D; font-family: "Montserrat", Arial, sans-serif; font-weight: 800; }
+  ul.rules b { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; }
+  .bottom { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 42px; color: #8DA9C4; }
+  .bottom .hint { font-family: "Lora", Georgia, serif; font-weight: 400; font-size: 42px; color: #5B7591; }
+  .lead { font-size: 48px; line-height: 1.4; margin: 0; }
+  .dark .lead, .dark .counter, .dark .bottom { color: #8DA9C4; }
+  .dark h1 { color: #FFFFFF; }
+  .dark h1 span { color: #F2C14E; }
+  .dark .lead b { color: #FFFFFF; font-family: "Montserrat", Arial, sans-serif; font-weight: 800; }
+  .bg-waves { position: absolute; left: 0; right: 0; bottom: 0; height: 260px; pointer-events: none; }
+</style>
+</head>
+<!--
+  TIGA ALTERNATIF HOOK
+  A. "Anak sudah check-in ke pelatih? Kalau belum, jangan turun dulu."
+  B. "Kolam yang sama, bahaya yang sama. Sebelum dan sesudah kelas, anak ada di tangan Ayah/Bunda."
+  C. "Pelatih menjaga anak di air. Siapa yang menjaga sebelum dan sesudahnya?"
+
+  DIPILIH: A.
+  Alasan: (1) Menyebut satu tindakan konkret yang bisa dijawab orang tua dalam satu detik, bukan pernyataan umum.
+  (2) Langsung menyasar titik paling rawan menurut SOP: anak turun ke kolam sebelum check-in pelatih selesai.
+  (3) Kata "check-in" menjadi istilah yang akan diulang di poster, lembar persetujuan, dan pesan WhatsApp, sehingga
+      orang tua mengenalinya sejak slide pertama. B terlalu panjang untuk satu layar, C bagus tetapi tidak memberi tindakan.
+-->
+<body>
+<div class="slide dark">
+  <div class="top">
+    <div class="logo-box">
+<!-- LOGO:START -->
+      <!-- Placeholder wordmark. Jalankan output/tools/sematkan-logo.py logo-twentyswim.png untuk mengganti dengan logo asli (base64). -->
+      <svg class="logo" viewBox="0 0 520 230" role="img" aria-label="Twenty Swim Swimming School" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 92 C120 40 220 40 300 78 S460 110 500 70 C470 120 380 132 290 108 S120 98 40 92 Z" fill="#8DA9C4"/>
+        <path d="M60 112 C150 72 240 77 320 102 S450 122 490 94 C450 142 360 152 280 130 S130 120 60 112 Z" fill="#0B2545"/>
+        <text x="260" y="184" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="54" fill="#0B2545" letter-spacing="3">TWENTY SWIM</text>
+        <text x="260" y="216" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="19" fill="#5B7591" letter-spacing="6">SWIMMING SCHOOL</text>
+      </svg>
+      <!-- LOGO:END -->
+    </div>
+    <div class="counter">1/6</div>
+  </div>
+  <div class="body">
+    <div class="tag">Penting</div>
+    <h1>Anak sudah check-in ke pelatih?<br><span>Kalau belum, jangan turun dulu.</span></h1>
+    <p class="lead" style="margin-top: 44px;">10 aturan aman untuk <b>Ayah &amp; Bunda</b> selama anak di area kolam. Geser.</p>
+  </div>
+  <div class="bottom"><span>@twentyswim</span></div>
+<svg class="bg-waves" viewBox="0 0 1080 260" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 150 C 140 90, 280 90, 420 150 S 700 210, 840 150 S 1040 100, 1080 120 V260 H0 Z" fill="#8DA9C4" opacity=".22"/>
+      <path d="M0 200 C 140 140, 280 140, 420 200 S 700 260, 840 200 S 1040 150, 1080 170 V260 H0 Z" fill="#8DA9C4" opacity=".3"/>
+    </svg>
+</div>
+</body>
+</html>

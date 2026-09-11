@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lembar Persetujuan Orang Tua/Wali - Twenty Swim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4 portrait; margin: 12mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Lora", Georgia, serif;
+    font-size: 8.9pt;
+    line-height: 1.32;
+    color: #0B2545;
+    background: #FFFFFF;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 186mm;            /* 210mm - 2 x 12mm */
+    min-height: 273mm;       /* 297mm - 2 x 12mm */
+    margin: 0 auto;
+    padding: 0;
+    background: #FFFFFF;
+  }
+  @media screen {
+    body { background: #E9EEF3; padding: 10mm 0; }
+    .page { padding: 12mm; width: 210mm; min-height: 297mm; box-shadow: 0 2px 12px rgba(11,37,69,.15); }
+  }
+  h1, h2, h3 { font-family: "Montserrat", Arial, sans-serif; margin: 0; }
+  .header {
+    display: flex; align-items: center; justify-content: space-between; gap: 8mm;
+    padding-bottom: 3mm;
+  }
+  .header .logo-box { flex: 0 0 auto; width: 40mm; }
+  .header .logo { width: 40mm; height: auto; display: block; }
+  .header .title { flex: 1 1 auto; text-align: right; }
+  .header h1 { font-size: 14pt; font-weight: 800; letter-spacing: .3px; line-height: 1.15; }
+  .header .sub { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 8.5pt; color: #5B7591; margin-top: 1.2mm; text-transform: uppercase; letter-spacing: .8px; }
+  .wave { display: block; width: 100%; height: 5mm; margin: 1mm 0 3mm; }
+  .intro { margin: 0 0 3mm; }
+  .meta { font-size: 8.5pt; color: #3D5570; margin-bottom: 3mm; }
+  table.rules { width: 100%; border-collapse: collapse; margin: 0 0 3mm; }
+  table.rules th, table.rules td { border: 0.35mm solid #8DA9C4; padding: 1.1mm 2mm; vertical-align: top; }
+  table.rules th { font-family: "Montserrat", Arial, sans-serif; font-size: 8.5pt; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; background: #0B2545; color: #FFFFFF; text-align: left; }
+  table.rules th.no { width: 8mm; text-align: center; }
+  table.rules td.no { text-align: center; font-family: "Montserrat", Arial, sans-serif; font-weight: 700; }
+  table.rules td.harus { width: 46%; }
+  table.rules td.dilarang { width: 46%; }
+  table.rules th.dilarang { background: #C8553D; }
+  table.rules tr:nth-child(even) td { background: #F4F7FA; }
+  .note {
+    border: 0.5mm solid #F2C14E; background: #FFF8E4; padding: 2mm 3mm; margin: 0 0 3.5mm;
+    font-weight: 500;
+  }
+  .note strong { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 8.5pt; letter-spacing: .5px; text-transform: uppercase; display: block; margin-bottom: .8mm; }
+  .statement { margin: 0 0 3.5mm; }
+  .statement p { margin: 0 0 1.5mm; }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 6mm; margin: 0 0 3mm; }
+  .field { display: flex; align-items: flex-end; gap: 2mm; }
+  .field label { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 8pt; white-space: nowrap; color: #0B2545; }
+  .field .line { flex: 1 1 auto; border-bottom: 0.35mm solid #0B2545; height: 5.5mm; }
+  .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 2mm; }
+  .sign .box { border: 0.35mm solid #8DA9C4; height: 20mm; padding: 1.5mm 2mm; position: relative; }
+  .sign .box span { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 7.5pt; color: #3D5570; text-transform: uppercase; letter-spacing: .5px; }
+  .sign .box .name { position: absolute; left: 2mm; right: 2mm; bottom: 1.5mm; font-size: 8pt; color: #3D5570; border-top: 0.3mm dotted #8DA9C4; padding-top: 1mm; }
+  .footer { margin-top: 3mm; padding-top: 2mm; border-top: 0.3mm solid #8DA9C4; font-size: 7.5pt; color: #3D5570; display: flex; justify-content: space-between; gap: 4mm; }
+  .footer b { font-family: "Montserrat", Arial, sans-serif; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="logo-box">
+      <!-- LOGO:START -->
+      <!-- Placeholder wordmark. Jalankan output/tools/sematkan-logo.py logo-twentyswim.png untuk mengganti dengan logo asli (base64). -->
+      <svg class="logo" viewBox="0 0 520 230" role="img" aria-label="Twenty Swim Swimming School" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 92 C120 40 220 40 300 78 S460 110 500 70 C470 120 380 132 290 108 S120 98 40 92 Z" fill="#8DA9C4"/>
+        <path d="M60 112 C150 72 240 77 320 102 S450 122 490 94 C450 142 360 152 280 130 S130 120 60 112 Z" fill="#0B2545"/>
+        <text x="260" y="184" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="54" fill="#0B2545" letter-spacing="3">TWENTY SWIM</text>
+        <text x="260" y="216" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="19" fill="#5B7591" letter-spacing="6">SWIMMING SCHOOL</text>
+      </svg>
+      <!-- LOGO:END -->
+    </div>
+    <div class="title">
+      <h1>Lembar Persetujuan Orang Tua/Wali<br>Prosedur Keselamatan Peserta</h1>
+      <div class="sub">PT Twenty Sports Academy &middot; Twenty Swim Swimming School</div>
+    </div>
+  </div>
+
+  <svg class="wave" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 12 C 80 2, 160 2, 250 12 S 420 22, 500 12 S 670 2, 750 12 S 920 22, 1000 12" fill="none" stroke="#8DA9C4" stroke-width="2"/>
+  </svg>
+
+  <p class="intro">Prosedur berikut berlaku bagi orang tua/wali selama anak berada di area fasilitas renang Twenty Swim. Mohon dibaca dengan saksama sebelum menandatangani.</p>
+
+  <table class="rules">
+    <thead>
+      <tr>
+        <th class="no">No.</th>
+        <th class="harus">Harus dilakukan</th>
+        <th class="dilarang">Dilarang</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="no">1</td><td class="harus">Tetap berada di area fasilitas selama kelas berlangsung. Bila perlu keluar, konfirmasi terlebih dahulu kepada pelatih.</td><td class="dilarang">Meninggalkan area kolam saat anak masih berada di dalamnya tanpa konfirmasi kepada pelatih.</td></tr>
+      <tr><td class="no">2</td><td class="harus">Duduk di area yang disediakan, disarankan dekat area latihan anak.</td><td class="dilarang">Masuk ke deck/tepi kolam tanpa izin pelatih.</td></tr>
+      <tr><td class="no">3</td><td class="harus">Memantau anak selama sesi berlangsung.</td><td class="dilarang">Sibuk dengan ponsel hingga lupa memantau anak.</td></tr>
+      <tr><td class="no">4</td><td class="harus">Menginformasikan kondisi kesehatan anak kepada pelatih sebelum latihan.</td><td class="dilarang">Menyembunyikan kondisi sakit anak agar tetap bisa berlatih.</td></tr>
+      <tr><td class="no">5</td><td class="harus">Memastikan anak tidak turun ke kolam sebelum sesi dimulai atau sebelum check-in oleh pelatih selesai, kecuali dalam pengawasan ketat orang tua.</td><td class="dilarang">Membiarkan anak bermain di area kolam tanpa pengawasan sebelum sesi/check-in.</td></tr>
+      <tr><td class="no">6</td><td class="harus">Mengawasi anak bila masih bermain di area kolam setelah check-out oleh pelatih selesai.</td><td class="dilarang">Membiarkan anak bermain di area kolam tanpa pengawasan setelah check-out.</td></tr>
+      <tr><td class="no">7</td><td class="harus">Segera memberi tahu pelatih jika melihat situasi berbahaya.</td><td class="dilarang">Diam saat melihat situasi berbahaya.</td></tr>
+      <tr><td class="no">8</td><td class="harus">Menghormati keputusan dan instruksi pelatih demi keselamatan anak.</td><td class="dilarang">Membantah atau mengabaikan instruksi pelatih.</td></tr>
+      <tr><td class="no">9</td><td class="harus">Memakaikan anak baju renang berwarna cerah agar mudah terlihat.</td><td class="dilarang">Memakaikan baju renang berwarna hitam atau biru tua.</td></tr>
+      <tr><td class="no">10</td><td class="harus">Membawa anak berlatih hanya saat kondisi fisiknya sehat.</td><td class="dilarang">Memaksa anak berlatih saat demam, diare, atau muntah.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Catatan penting</strong>
+    Pelatih dan Twenty Swim bertanggung jawab atas peserta hanya selama proses check-in hingga check-out berlangsung (lihat butir 5 dan 6).
+  </div>
+
+  <div class="statement">
+    <p>Dengan menandatangani lembar ini, saya menyatakan bahwa <b>saya telah membaca dan memahami</b> seluruh prosedur keselamatan di atas beserta catatan pentingnya, dan <b>bersedia mematuhinya</b> selama anak saya berada di area fasilitas renang Twenty Swim.</p>
+  </div>
+
+  <div class="fields">
+    <div class="field"><label>Nama orang tua/wali</label><div class="line"></div></div>
+    <div class="field"><label>Nama anak</label><div class="line"></div></div>
+    <div class="field"><label>Level/kelas</label><div class="line"></div></div>
+    <div class="field"><label>Nomor WhatsApp</label><div class="line"></div></div>
+    <div class="field"><label>Lokasi latihan</label><div class="line"></div></div>
+    <div class="field"><label>Tanggal</label><div class="line"></div></div>
+  </div>
+
+  <div class="sign">
+    <div class="box"><span>Tanda tangan orang tua/wali</span><div class="name">Nama jelas</div></div>
+    <div class="box"><span>Diterima oleh (admin/pelatih)</span><div class="name">Nama jelas</div></div>
+  </div>
+
+  <div class="footer">
+    <div><b>Twenty Swim</b> &middot; Bandung Raya, Cimahi, Sukabumi &middot; Kurikulum Swim Schools International (SSI)</div>
+    <div>Instagram @twentyswim &middot; twentyswimlocation.netlify.app</div>
+  </div>
+
+</div>
+</body>
+</html>

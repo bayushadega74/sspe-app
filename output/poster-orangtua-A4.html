@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 Aturan Aman untuk Ayah & Bunda - Twenty Swim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4 portrait; margin: 12mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Lora", Georgia, serif;
+    font-size: 8.8pt;
+    line-height: 1.32;
+    color: #0B2545;
+    background: #FFFFFF;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page { width: 186mm; min-height: 273mm; margin: 0 auto; background: #FFFFFF; display: flex; flex-direction: column; }
+  @media screen {
+    body { background: #E9EEF3; padding: 10mm 0; }
+    .page { padding: 12mm; width: 210mm; min-height: 297mm; box-shadow: 0 2px 12px rgba(11,37,69,.15); }
+  }
+  h1, h2, h3 { font-family: "Montserrat", Arial, sans-serif; margin: 0; }
+
+  /* Header */
+  .header {
+    background: #0B2545; color: #FFFFFF; border-radius: 3mm;
+    padding: 4mm 6mm; display: flex; align-items: center; gap: 6mm; position: relative; overflow: hidden;
+  }
+  .header .logo-box { flex: 0 0 auto; background: #FFFFFF; border-radius: 2mm; padding: 2mm 3mm; width: 42mm; }
+  .header .logo { width: 100%; height: auto; display: block; }
+  .header .title { flex: 1 1 auto; position: relative; }
+  .header h1 { font-size: 19pt; font-weight: 800; line-height: 1.1; letter-spacing: .2px; }
+  .header h1 span { color: #F2C14E; }
+  .header .sub { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 8.5pt; color: #8DA9C4; margin-top: 1.5mm; text-transform: uppercase; letter-spacing: .8px; }
+  .header .lead { font-size: 8.3pt; margin-top: 1.5mm; color: #FFFFFF; opacity: .92; }
+  .header .waves { position: absolute; right: -6mm; bottom: -3mm; width: 70mm; height: 16mm; opacity: .35; }
+
+  /* Column labels */
+  .cols-head { display: grid; grid-template-columns: 9mm 1fr 1fr; gap: 0 3mm; margin: 2.5mm 0 1mm; align-items: end; }
+  .cols-head div { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .9px; padding: 1.2mm 2.5mm; border-radius: 1.2mm; }
+  .cols-head .h { background: #0B2545; color: #FFFFFF; }
+  .cols-head .j { background: #C8553D; color: #FFFFFF; }
+
+  /* Rules */
+  .rule { display: grid; grid-template-columns: 9mm 1fr 1fr; gap: 0 3mm; padding: 1.9mm 0 1.7mm; border-top: 0.25mm solid #D5E0EA; page-break-inside: avoid; }
+  .rule .no { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 14pt; color: #8DA9C4; line-height: 1; padding-top: .6mm; }
+  .rule .h, .rule .j { font-weight: 500; padding-left: 2.2mm; border-left: 0.8mm solid #0B2545; }
+  .rule .j { border-left-color: #C8553D; }
+  .rule .j::before { content: "Jangan "; font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 7.5pt; text-transform: uppercase; letter-spacing: .5px; color: #C8553D; }
+  .rule .why { grid-column: 2 / 4; font-size: 8pt; color: #3D5570; margin-top: .6mm; font-style: italic; }
+  .rule .why::before { content: "Kenapa: "; font-style: normal; font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 7pt; text-transform: uppercase; letter-spacing: .5px; color: #5B7591; }
+  .rule.penting { background: #FFF8E4; border-top-color: #F2C14E; border-radius: 1.5mm; padding-left: 0; }
+  .rule.penting .no { color: #0B2545; }
+  .badge { display: inline-block; font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 6.6pt; letter-spacing: .8px; text-transform: uppercase; background: #F2C14E; color: #0B2545; border-radius: 1mm; padding: .5mm 1.6mm; margin-left: 1.5mm; vertical-align: middle; }
+
+  /* Bottom */
+  .bottom { margin-top: auto; padding-top: 2mm; display: grid; grid-template-columns: 1.55fr 1fr; gap: 4mm; align-items: stretch; }
+  .coach { border: 0.4mm solid #8DA9C4; border-radius: 2.5mm; padding: 3mm 4mm; }
+  .coach h2 { font-size: 9.2pt; font-weight: 800; margin-bottom: 1.5mm; }
+  .coach ul { margin: 0; padding-left: 4.5mm; }
+  .coach li { margin: 0 0 .8mm; font-size: 8.3pt; }
+  .footer { background: #0B2545; color: #FFFFFF; border-radius: 2.5mm; padding: 3mm 4mm; display: flex; flex-direction: column; justify-content: center; gap: 1.5mm; }
+  .footer .row { display: flex; align-items: center; gap: 2.5mm; font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 8pt; }
+  .footer svg { width: 5mm; height: 5mm; flex: 0 0 auto; }
+  .footer small { display: block; font-family: "Lora", Georgia, serif; font-weight: 400; font-size: 7.5pt; color: #8DA9C4; margin-top: 1mm; }
+  .wave { display: block; width: 100%; height: 4mm; margin: 2mm 0 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="logo-box">
+      <!-- LOGO:START -->
+      <!-- Placeholder wordmark. Jalankan output/tools/sematkan-logo.py logo-twentyswim.png untuk mengganti dengan logo asli (base64). -->
+      <svg class="logo" viewBox="0 0 520 230" role="img" aria-label="Twenty Swim Swimming School" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 92 C120 40 220 40 300 78 S460 110 500 70 C470 120 380 132 290 108 S120 98 40 92 Z" fill="#8DA9C4"/>
+        <path d="M60 112 C150 72 240 77 320 102 S450 122 490 94 C450 142 360 152 280 130 S130 120 60 112 Z" fill="#0B2545"/>
+        <text x="260" y="184" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="54" fill="#0B2545" letter-spacing="3">TWENTY SWIM</text>
+        <text x="260" y="216" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="19" fill="#5B7591" letter-spacing="6">SWIMMING SCHOOL</text>
+      </svg>
+      <!-- LOGO:END -->
+    </div>
+    <div class="title">
+      <h1>10 Aturan Aman<br>untuk <span>Ayah &amp; Bunda</span></h1>
+      <div class="sub">Berlaku selama anak berada di area kolam</div>
+      <div class="lead">Anak belajar berenang dengan tenang bila pelatih dan Ayah/Bunda menjaga bersama. Ini bagian Ayah/Bunda.</div>
+    </div>
+    <svg class="waves" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 30 C40 10 80 10 120 30 S200 50 240 30 S290 10 300 20" fill="none" stroke="#8DA9C4" stroke-width="3"/>
+      <path d="M0 45 C40 25 80 25 120 45 S200 65 240 45 S290 25 300 35" fill="none" stroke="#8DA9C4" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <div class="cols-head">
+    <div></div>
+    <div class="h">Harus</div>
+    <div class="j">Jangan</div>
+  </div>
+
+  <div class="rule penting">
+    <div class="no">1</div>
+    <div class="h">Tetap berada di area fasilitas selama kelas berlangsung. Bila perlu keluar, konfirmasi dulu ke pelatih.<span class="badge">Penting</span></div>
+    <div class="j">meninggalkan area kolam saat anak masih di dalamnya tanpa konfirmasi ke pelatih.</div>
+    <div class="why">Bila terjadi sesuatu, pelatih harus bisa langsung menemukan Ayah/Bunda.</div>
+  </div>
+
+  <div class="rule">
+    <div class="no">2</div>
+    <div class="h">Duduk di area yang disediakan, disarankan dekat area latihan anak.</div>
+    <div class="j">masuk ke deck/tepi kolam tanpa izin pelatih.</div>
+    <div class="why">Deck yang lengang membuat pelatih leluasa mengawasi dan bergerak cepat.</div>
+  </div>
+
+  <div class="rule">
+    <div class="no">3</div>
+    <div class="h">Pantau anak selama sesi berlangsung.</div>
+    <div class="j">sibuk dengan ponsel hingga lupa memantau anak.</div>
+    <div class="why">Mata Ayah/Bunda adalah lapisan pengawasan kedua setelah pelatih.</div>
+  </div>
+
+  <div class="rule">
+    <div class="no">4</div>
+    <div class="h">Informasikan kondisi kesehatan anak ke pelatih sebelum latihan.</div>
+    <div class="j">menyembunyikan kondisi sakit anak agar tetap bisa latihan.</div>
+    <div class="why">Pelatih bisa menyesuaikan latihan bila tahu kondisi anak hari itu.</div>
+  </div>
+
+  <div class="rule penting">
+    <div class="no">5</div>
+    <div class="h">Pastikan anak tidak turun ke kolam sebelum sesi dimulai atau sebelum check-in oleh pelatih selesai, kecuali dalam pengawasan ketat Ayah/Bunda.<span class="badge">Penting</span></div>
+    <div class="j">membiarkan anak bermain di area kolam tanpa pengawasan sebelum sesi/check-in.</div>
+    <div class="why">Sebelum check-in, anak belum berada dalam pengawasan pelatih.</div>
+  </div>
+
+  <div class="rule penting">
+    <div class="no">6</div>
+    <div class="h">Awasi anak bila masih bermain di area kolam setelah check-out oleh pelatih selesai.<span class="badge">Penting</span></div>
+    <div class="j">membiarkan anak bermain di area kolam tanpa pengawasan setelah check-out.</div>
+    <div class="why">Setelah check-out, pengawasan kembali ke Ayah/Bunda, sementara bahaya di area kolam tetap ada.</div>
+  </div>
+
+  <div class="rule">
+    <div class="no">7</div>
+    <div class="h">Segera beri tahu pelatih jika melihat situasi berbahaya.</div>
+    <div class="j">diam saat melihat situasi berbahaya.</div>
+    <div class="why">Semakin cepat pelatih tahu, semakin cepat pelatih bisa bertindak.</div>
+  </div>
+
+  <div class="rule">
+    <div class="no">8</div>
+    <div class="h">Hormati keputusan dan instruksi pelatih demi keselamatan anak.</div>
+    <div class="j">membantah atau mengabaikan instruksi pelatih.</div>
+    <div class="why">Keputusan pelatih diambil dari apa yang pelatih lihat di air, demi keselamatan anak.</div>
+  </div>
+
+  <div class="rule">
+    <div class="no">9</div>
+    <div class="h">Pakaikan anak baju renang berwarna cerah agar mudah terlihat.</div>
+    <div class="j">memakaikan baju renang hitam atau biru tua.</div>
+    <div class="why">Warna cerah lebih mudah terlihat di dalam air.</div>
+  </div>
+
+  <div class="rule">
+    <div class="no">10</div>
+    <div class="h">Bawa anak berlatih hanya saat kondisi fisiknya sehat.</div>
+    <div class="j">memaksa anak berlatih saat demam, diare, atau muntah.</div>
+    <div class="why">Tubuh yang sedang sakit belum siap beraktivitas di air.</div>
+  </div>
+
+  <svg class="wave" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 12 C 80 2, 160 2, 250 12 S 420 22, 500 12 S 670 2, 750 12 S 920 22, 1000 12" fill="none" stroke="#8DA9C4" stroke-width="2"/>
+  </svg>
+
+  <div class="bottom">
+    <div class="coach">
+      <h2>Apa yang pelatih kami lakukan untuk anak Anda</h2>
+      <ul>
+        <li>Menghitung jumlah peserta sebelum dan sesudah sesi.</li>
+        <li>Memberi briefing keselamatan di setiap sesi dan menegur anak yang berlari di tepi kolam.</li>
+        <li>Anak turun ke kolam hanya bersama pelatih (check-in) dan diserahkan kembali ke Ayah/Bunda dengan laporan singkat (check-out).</li>
+        <li>Tidak meninggalkan area kolam selama sesi berlangsung.</li>
+        <li>Memberi pertolongan pertama sesuai prosedur bila diperlukan.</li>
+      </ul>
+    </div>
+    <div class="footer">
+      <div class="row">
+        <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#FFFFFF" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#FFFFFF" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="#FFFFFF"/></svg>
+        <span>@twentyswim</span>
+      </div>
+      <div class="row">
+        <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="#FFFFFF" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg>
+        <span>twentyswimlocation.netlify.app</span>
+      </div>
+      <small>Twenty Swim Swimming School &middot; PT Twenty Sports Academy &middot; Bandung Raya, Cimahi, Sukabumi</small>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

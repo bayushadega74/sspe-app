@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kartu Janji Perenang Pintar - Twenty Swim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<!--
+  Ukuran: A5 portrait (148 x 210 mm), margin 12 mm.
+  Cetak 2 kartu per A4: pilih kertas A4, orientasi landscape, opsi printer "2 halaman per lembar" / "2-up".
+-->
+<style>
+  @page { size: A5 portrait; margin: 12mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Lora", Georgia, serif;
+    font-size: 10.8pt;
+    line-height: 1.3;
+    color: #0B2545;
+    background: #FFFFFF;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page { width: 124mm; min-height: 186mm; margin: 0 auto; background: #FFFFFF; display: flex; flex-direction: column; }
+  @media screen {
+    body { background: #E9EEF3; padding: 10mm 0; }
+    .page { padding: 12mm; width: 148mm; min-height: 210mm; box-shadow: 0 2px 12px rgba(11,37,69,.15); }
+  }
+  h1, h2 { font-family: "Montserrat", Arial, sans-serif; margin: 0; }
+
+  .card {
+    border: 0.6mm solid #0B2545; border-radius: 4mm; padding: 4mm 5mm 4mm; flex: 1 1 auto;
+    display: flex; flex-direction: column; position: relative; overflow: hidden;
+  }
+  .header { display: flex; align-items: center; gap: 4mm; }
+  .header .logo-box { flex: 0 0 auto; width: 30mm; }
+  .header .logo { width: 100%; height: auto; display: block; }
+  .header h1 { font-size: 14pt; font-weight: 800; line-height: 1.1; }
+  .header .sub { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 7.5pt; color: #5B7591; text-transform: uppercase; letter-spacing: .8px; margin-top: 1mm; }
+  .wave { display: block; width: 100%; height: 4mm; margin: 2mm 0 1.5mm; }
+
+  .hello { font-size: 10pt; margin: 0 0 1.5mm; }
+  .hello b { font-family: "Montserrat", Arial, sans-serif; }
+
+  ul.janji { list-style: none; margin: 0; padding: 0; }
+  ul.janji li { display: flex; align-items: flex-start; gap: 3mm; padding: 1.3mm 0; border-top: 0.25mm dashed #8DA9C4; }
+  ul.janji li:first-child { border-top: 0; }
+  ul.janji .box { flex: 0 0 auto; width: 7mm; height: 7mm; border: 0.5mm solid #0B2545; border-radius: 1.5mm; background: #FFFFFF; margin-top: .3mm; }
+  ul.janji .txt { font-weight: 500; font-size: 10.8pt; line-height: 1.28; }
+  ul.janji .txt b { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; color: #0B2545; }
+
+  .art { display: flex; justify-content: space-around; align-items: center; margin: 1.5mm 0 .5mm; }
+  .art svg { height: 10mm; width: auto; }
+
+  .fields { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 5mm; padding-top: 2mm; }
+  .field label { display: block; font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 8pt; color: #3D5570; margin-bottom: 1mm; }
+  .field .line { border-bottom: 0.4mm solid #0B2545; height: 7mm; }
+  .field .stamp { border: 0.4mm dashed #8DA9C4; border-radius: 2mm; height: 14mm; }
+  .close { margin-top: 2.5mm; background: #0B2545; color: #FFFFFF; border-radius: 2.5mm; padding: 2mm 4mm; display: flex; align-items: center; gap: 3mm; }
+  .close .say { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 12pt; }
+  .close svg { width: 8mm; height: 8mm; flex: 0 0 auto; }
+  .close small { display: block; font-family: "Lora", Georgia, serif; font-weight: 400; font-size: 7.5pt; color: #8DA9C4; margin-top: .5mm; }
+  .bg-wave { position: absolute; left: -2mm; right: -2mm; bottom: -1mm; height: 14mm; opacity: .18; pointer-events: none; z-index: 0; }
+  .card > *:not(.bg-wave) { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="card">
+
+  <div class="header">
+    <div class="logo-box">
+      <!-- LOGO:START -->
+      <!-- Placeholder wordmark. Jalankan output/tools/sematkan-logo.py logo-twentyswim.png untuk mengganti dengan logo asli (base64). -->
+      <svg class="logo" viewBox="0 0 520 230" role="img" aria-label="Twenty Swim Swimming School" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 92 C120 40 220 40 300 78 S460 110 500 70 C470 120 380 132 290 108 S120 98 40 92 Z" fill="#8DA9C4"/>
+        <path d="M60 112 C150 72 240 77 320 102 S450 122 490 94 C450 142 360 152 280 130 S130 120 60 112 Z" fill="#0B2545"/>
+        <text x="260" y="184" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="54" fill="#0B2545" letter-spacing="3">TWENTY SWIM</text>
+        <text x="260" y="216" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="19" fill="#5B7591" letter-spacing="6">SWIMMING SCHOOL</text>
+      </svg>
+      <!-- LOGO:END -->
+    </div>
+    <div>
+      <h1>Janji<br>Perenang Pintar</h1>
+      <div class="sub">Kartu untuk kamu, perenang Twenty Swim</div>
+    </div>
+  </div>
+
+  <svg class="wave" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 12 C 80 2, 160 2, 250 12 S 420 22, 500 12 S 670 2, 750 12 S 920 22, 1000 12" fill="none" stroke="#8DA9C4" stroke-width="2.5"/>
+  </svg>
+
+  <p class="hello">Hai! Ini janjiku supaya aku aman dan jago berenang. <b>Centang</b> kalau kamu sudah siap.</p>
+
+  <ul class="janji">
+    <li><span class="box"></span><span class="txt"><b>Aku turun ke kolam</b> kalau sudah dipanggil Coach.</span></li>
+    <li><span class="box"></span><span class="txt"><b>Aku jalan pelan</b> di pinggir kolam. Aku tidak lari.</span></li>
+    <li><span class="box"></span><span class="txt"><b>Aku bilang ke Coach</b> kalau badanku tidak enak.</span></li>
+    <li><span class="box"></span><span class="txt"><b>Aku pakai baju renang</b> warna cerah.</span></li>
+    <li><span class="box"></span><span class="txt"><b>Aku dengar dan ikut</b> kata Coach.</span></li>
+    <li><span class="box"></span><span class="txt"><b>Kalau ada teman dalam bahaya,</b> aku panggil Coach.</span></li>
+    <li><span class="box"></span><span class="txt"><b>Kalau kelas sudah selesai,</b> aku tetap dekat Ayah/Bunda.</span></li>
+  </ul>
+
+  <div class="art" aria-hidden="true">
+    <!-- kacamata renang -->
+    <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="32" cy="28" rx="24" ry="15" fill="#FFFFFF" stroke="#0B2545" stroke-width="4"/>
+      <ellipse cx="88" cy="28" rx="24" ry="15" fill="#FFFFFF" stroke="#0B2545" stroke-width="4"/>
+      <ellipse cx="32" cy="28" rx="15" ry="8" fill="#8DA9C4"/>
+      <ellipse cx="88" cy="28" rx="15" ry="8" fill="#8DA9C4"/>
+      <path d="M56 28 h8" stroke="#0B2545" stroke-width="4" stroke-linecap="round"/>
+      <path d="M8 26 C 2 12, 30 6, 60 8 C 90 6, 118 12, 112 26" fill="none" stroke="#0B2545" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <!-- pelampung -->
+    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="30" r="24" fill="#FFFFFF" stroke="#0B2545" stroke-width="4"/>
+      <circle cx="30" cy="30" r="11" fill="#FFFFFF" stroke="#0B2545" stroke-width="4"/>
+      <path d="M30 6 A24 24 0 0 1 47 13 L38 22 A11 11 0 0 0 30 19 Z" fill="#C8553D"/>
+      <path d="M30 54 A24 24 0 0 1 13 47 L22 38 A11 11 0 0 0 30 41 Z" fill="#C8553D"/>
+      <path d="M6 30 A24 24 0 0 1 13 13 L22 22 A11 11 0 0 0 19 30 Z" fill="#C8553D"/>
+      <path d="M54 30 A24 24 0 0 1 47 47 L38 38 A11 11 0 0 0 41 30 Z" fill="#C8553D"/>
+    </svg>
+    <!-- gelombang -->
+    <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 20 C 20 6, 36 6, 52 20 S 84 34, 100 20 S 116 10, 116 14" fill="none" stroke="#0B2545" stroke-width="4" stroke-linecap="round"/>
+      <path d="M4 36 C 20 22, 36 22, 52 36 S 84 50, 100 36 S 116 26, 116 30" fill="none" stroke="#8DA9C4" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="fields">
+    <div class="field"><label>Nama:</label><div class="line"></div></div>
+    <div class="field" style="grid-row: span 2;"><label>Tanda tangan / cap jempol</label><div class="stamp"></div></div>
+    <div class="field"><label>Level / Coach:</label><div class="line"></div></div>
+  </div>
+
+  <div class="close">
+    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.7 1.5 6.8L12 17l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7z" fill="#F2C14E"/></svg>
+    <div>
+      <div class="say">Coach bangga sama kamu.</div>
+      <small>Twenty Swim Swimming School &middot; @twentyswim</small>
+    </div>
+  </div>
+
+  <svg class="bg-wave" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 40 C60 10 120 10 180 40 S300 70 360 40 S480 10 540 40 S600 60 600 50 V60 H0 Z" fill="#8DA9C4"/>
+  </svg>
+
+</div>
+</div>
+</body>
+</html>
