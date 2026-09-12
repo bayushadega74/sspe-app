@@ -4,22 +4,22 @@ Semua file HTML berdiri sendiri (CSS di dalam file), memuat font Montserrat dan 
 
 | File | Format | Isi |
 |---|---|---|
-| `lembar-persetujuan-orangtua.html` | A4 portrait, 1 halaman | Lembar persetujuan formal, 10 aturan lengkap, kolom tanda tangan |
-| `poster-orangtua-A4.html` | A4 portrait, 1 halaman | Poster "10 Aturan Aman untuk Ayah & Bunda" |
-| `kartu-anak-A5.html` | A5 portrait, 1 halaman | Kartu "Janji Perenang Pintar" (7 janji, kotak centang) |
+| `lembar-persetujuan-orangtua.html` | A4 portrait, 1 halaman | Lembar persetujuan formal, 11 aturan lengkap, kolom tanda tangan |
+| `poster-orangtua-A4.html` | A4 portrait, 1 halaman | Poster "11 Aturan Aman untuk Ayah & Bunda" |
+| `kartu-anak-A5.html` | A5 portrait, 1 halaman | Kartu "Janji Perenang Pintar" (8 janji, kotak centang) |
 | `carousel-ig-orangtua/slide-1..6.html` | 1080 x 1350 px | 6 slide carousel Instagram |
 | `carousel-ig-orangtua/caption.txt` | teks | Caption Instagram + 5 tagar |
 | `whatsapp-onboarding.txt` | teks | 3 pesan siap kirim untuk admin |
 
 ## 1. Menyematkan logo asli
 
-Logo belum tersedia sebagai file di repo ini, sehingga setiap HTML memakai wordmark sementara (SVG) di antara penanda `<!-- LOGO:START -->` dan `<!-- LOGO:END -->`.
+Logo asli (`logo-twentyswim.png`, 800 x 391 px, PNG transparan) sudah tersemat sebagai base64 di semua HTML, di antara penanda `<!-- LOGO:START -->` dan `<!-- LOGO:END -->`. Bila logo diperbarui, jalankan ulang:
 
 ```
 python3 output/tools/sematkan-logo.py logo-twentyswim.png
 ```
 
-Skrip mengganti wordmark sementara dengan `<img src="data:image/png;base64,...">` di semua HTML. Tidak ada CSS filter yang diterapkan pada logo; di latar navy logo diletakkan di dalam kotak putih.
+Skrip mengganti isi di antara penanda dengan `<img src="data:image/png;base64,...">` di semua HTML. Tidak ada CSS filter yang diterapkan pada logo; di latar navy logo diletakkan di dalam kotak putih.
 
 ## 2. Mencetak
 
