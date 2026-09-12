@@ -10,6 +10,7 @@ Semua file HTML berdiri sendiri (CSS di dalam file), memuat font Montserrat dan 
 | `carousel-ig-orangtua/slide-1..6.html` | 1080 x 1350 px | 6 slide carousel Instagram |
 | `carousel-ig-orangtua/caption.txt` | teks | Caption Instagram + 5 tagar |
 | `whatsapp-onboarding.txt` | teks | 3 pesan siap kirim untuk admin |
+| `halaman-orangtua/index.html` | halaman web, 1 file | Halaman beranimasi 11 aturan untuk orang tua, siap di-hosting di Netlify |
 
 ## 1. Menyematkan logo asli
 
@@ -40,3 +41,11 @@ node output/tools/render-slides.js
 ```
 
 Hasil PNG tersimpan di `output/carousel-ig-orangtua/png/`.
+
+## 4. Halaman web untuk orang tua (Netlify)
+
+`output/halaman-orangtua/index.html` berdiri sendiri (logo base64, CSS dan JS inline, font dari Google Fonts).
+
+Deploy drag-drop: buka https://app.netlify.com/drop, seret folder `output/halaman-orangtua` ke area unggah, tunggu tautan `*.netlify.app` muncul. Untuk memperbarui, buka situs itu di dasbor Netlify, tab Deploys, lalu seret folder yang sama lagi.
+
+Nomor WhatsApp admin diisi pada konstanta `NOMOR_WA` di bagian `<script>` paling bawah file (format 62812xxxxxxx). Selama kosong, tombol WhatsApp tidak ditampilkan.
