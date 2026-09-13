@@ -11,6 +11,8 @@ Semua file HTML berdiri sendiri (CSS di dalam file), memuat font Montserrat dan 
 | `carousel-ig-orangtua/caption.txt` | teks | Caption Instagram + 5 tagar |
 | `whatsapp-onboarding.txt` | teks | 3 pesan siap kirim untuk admin |
 | `halaman-orangtua/index.html` | halaman web, 1 file | Halaman beranimasi 11 aturan untuk orang tua, siap di-hosting di Netlify |
+| `film-orangtua/film-keselamatan-anak-twentyswim.mp4` | video MP4, 1080x1920, 48 detik | Film pendek animasi untuk WhatsApp Status / Instagram Reels |
+| `film-orangtua/film.html` | halaman animasi, 1 file | Sumber film (garis waktu animasi); dapat dirender ulang jadi MP4 |
 
 ## 1. Menyematkan logo asli
 
@@ -49,3 +51,17 @@ Hasil PNG tersimpan di `output/carousel-ig-orangtua/png/`.
 Deploy drag-drop: buka https://app.netlify.com/drop, seret folder `output/halaman-orangtua` ke area unggah, tunggu tautan `*.netlify.app` muncul. Untuk memperbarui, buka situs itu di dasbor Netlify, tab Deploys, lalu seret folder yang sama lagi.
 
 Nomor WhatsApp admin diisi pada konstanta `NOMOR_WA` di bagian `<script>` paling bawah file (format 62812xxxxxxx). Selama kosong, tombol WhatsApp tidak ditampilkan.
+
+## 5. Film pendek (MP4 untuk WhatsApp / Instagram Reels)
+
+`output/film-orangtua/film-keselamatan-anak-twentyswim.mp4` adalah film vertikal 1080x1920, 48 detik, tanpa suara: pembuka brand, alur check-in sampai check-out (siapa yang mengawasi anak), 3 aturan paling penting (teks persis poster), lalu penutup brand. Ukuran sekitar 1,6 MB, format H.264 yang aman di WhatsApp dan Instagram.
+
+Kirim langsung file MP4-nya. Untuk Instagram Reels atau WhatsApp Status, unggah seperti video biasa; rasio 9:16 sudah pas layar penuh HP.
+
+Merender ulang (jika `film.html` diubah): butuh Node.js, Playwright, dan ffmpeg.
+
+```
+FFMPEG=$(python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())") node output/tools/render-film.js
+```
+
+Bila ffmpeg sudah ada di PATH, cukup `node output/tools/render-film.js`. Font Montserrat dan Lora sudah ditanam di `film.html` sebagai base64, jadi render tidak butuh internet.
