@@ -58,6 +58,41 @@
   .wave-c { animation: drift 26s linear infinite; }
   @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+
+  /* Adegan penjelas 4 langkah */
+  .scene-wrap { margin-top: 26px; background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 14px 14px 16px; }
+  .scene { display: block; width: 100%; height: auto; border-radius: 12px; background: #FFFFFF; }
+  .scene .fig, .scene .who { transition: transform .9s var(--ease); }
+  .scene .who { transition-duration: .7s; }
+  .scene .lbl { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 8.5px; fill: var(--muted); letter-spacing: .4px; }
+  .scene .who text { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 8.5px; fill: var(--navy); letter-spacing: .6px; }
+  .scene .ripple { stroke: #FFFFFF; stroke-width: 1.6; stroke-linecap: round; opacity: .7; stroke-dasharray: 10 14; animation: rip 3s linear infinite; }
+  @keyframes rip { to { stroke-dashoffset: -24; } }
+  /* posisi per langkah */
+  .scene .parent { transform: translate(57px, 150px); }
+  .scene .coach { transform: translate(150px, 150px); }
+  .scene .child { transform: translate(80px, 150px); }
+  .scene .who { transform: translate(57px, 78px); }
+  .scene.s2 .child { transform: translate(131px, 150px); }
+  .scene.s2 .who { transform: translate(150px, 78px); }
+  .scene.s3 .child { transform: translate(240px, 184px); }
+  .scene.s3 .coach { transform: translate(206px, 204px); }
+  .scene.s3 .who { transform: translate(206px, 128px); }
+  .scene.s4 .child { transform: translate(80px, 150px); }
+  .scene.s4 .who { transform: translate(57px, 78px); }
+  .scene.s3 .eye { opacity: 1; }
+  .scene .eye { opacity: 0; transition: opacity .5s; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 12px; }
+  .steps button { font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 12px; letter-spacing: .4px; border: 2px solid var(--line); background: var(--white); color: var(--muted); border-radius: 10px; padding: 9px 4px; cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
+  .steps button[aria-current="step"] { border-color: var(--navy); color: var(--white); background: var(--navy); }
+  .caption { margin-top: 12px; min-height: 4.6em; font-size: 16px; line-height: 1.5; }
+  .caption b { font-family: "Montserrat", Arial, sans-serif; color: var(--navy); }
+  .caption .badge { display: inline-block; margin-top: 8px; font-family: "Montserrat", Arial, sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; border-radius: 6px; padding: 3px 9px; background: var(--gold); color: var(--navy); }
+  .caption .badge.parent { background: #E4ECF3; color: var(--navy); }
+  .scene-ctl { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+  .scene-ctl small { color: var(--muted); font-size: 13px; }
+  .scene-ctl button { font-family: "Montserrat", Arial, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .6px; text-transform: uppercase; background: none; border: 0; color: var(--navy); text-decoration: underline; cursor: pointer; padding: 6px 0; }
+
   /* Sections */
   section { padding: 40px 0 8px; }
   .section-title { font-size: 24px; margin-bottom: 8px; }
@@ -164,6 +199,8 @@
     .phase-num span { color: var(--white); transition: none; }
     .card .ico path, .card .ico circle, .card .ico ellipse { stroke-dashoffset: 0; transition: none; }
     .card, .btn { transition: none; }
+    .scene .fig, .scene .who, .scene .eye { transition: none; }
+    .scene .ripple { animation: none; }
     html { scroll-behavior: auto; }
   }
 
@@ -185,6 +222,8 @@
     .tl li { padding-left: 0; padding-top: 48px; }
     .tl .dot { left: 12px; top: 4px; }
     .closing h2 { font-size: 32px; }
+    .scene-wrap { padding: 20px; }
+    .steps button { font-size: 13px; padding: 11px 6px; }
     .buoy { right: 40px; top: 40px; width: 110px; height: 110px; }
     .closing h2 { padding-right: 150px; }
   }
@@ -229,9 +268,62 @@
 <main>
   <section class="timeline" aria-labelledby="h-timeline">
     <div class="wrap">
-      <h2 class="section-title reveal" id="h-timeline">Kapan tanggung jawab pelatih dimulai dan berakhir?</h2>
-      <p class="section-lead reveal" style="--i:1">Tiga titik ini menentukan siapa yang sedang mengawasi anak.</p>
-      <ol class="tl reveal" id="tl" style="--i:2">
+      <h2 class="section-title reveal" id="h-timeline">Siapa yang mengawasi anak, dan kapan?</h2>
+      <p class="section-lead reveal" style="--i:1">Lihat alurnya dalam empat langkah. Penanda kuning menunjukkan siapa yang sedang mengawasi anak.</p>
+
+      <div class="scene-wrap reveal" style="--i:2">
+        <svg class="scene s1" id="scene" viewBox="0 60 360 172" role="img" aria-label="Adegan: anak bersama Ayah/Bunda di area duduk, check-in ke pelatih, berlatih di kolam bersama pelatih, lalu check-out kembali ke Ayah/Bunda" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <g id="f-adult">
+              <rect x="-7" y="-14" width="5" height="14" rx="2" fill="#0B2545"/><rect x="2" y="-14" width="5" height="14" rx="2" fill="#0B2545"/>
+              <rect x="-11" y="-44" width="22" height="32" rx="9" fill="#0B2545"/>
+              <circle cx="0" cy="-53" r="9" fill="#0B2545"/>
+            </g>
+            <g id="f-child">
+              <rect x="-5" y="-9" width="4" height="9" rx="1.5" fill="#0B2545"/><rect x="1" y="-9" width="4" height="9" rx="1.5" fill="#0B2545"/>
+              <rect x="-7.5" y="-29" width="15" height="21" rx="6" fill="#F2C14E"/>
+              <circle cx="0" cy="-35" r="6.5" fill="#0B2545"/>
+            </g>
+          </defs>
+          <!-- dek dan kolam -->
+          <rect x="0" y="150" width="360" height="82" fill="#EAF0F6"/>
+          <rect x="170" y="150" width="190" height="82" fill="#D5E0EA"/>
+          <rect x="170" y="165" width="190" height="67" fill="#8DA9C4"/>
+          <path class="ripple" d="M180 176 H350 M190 192 H340 M182 210 H352" fill="none"/>
+          <!-- bangku -->
+          <rect x="30" y="150" width="56" height="7" rx="2" fill="#0B2545"/><rect x="34" y="157" width="4" height="10" fill="#0B2545"/><rect x="78" y="157" width="4" height="10" fill="#0B2545"/>
+          <text class="lbl" x="58" y="182" text-anchor="middle">Area duduk</text>
+          <text class="lbl" x="150" y="182" text-anchor="middle">Tepi kolam</text>
+          <text class="lbl" x="330" y="226" text-anchor="middle" fill="#FFFFFF" style="fill:#FFFFFF">Kolam</text>
+          <!-- anak (digambar sebelum air agar tenggelam sebagian) -->
+          <g class="fig child"><use href="#f-child"/></g>
+          <g class="fig coach"><use href="#f-adult"/><path d="M-9 -55 a9 9 0 0 1 18 0 z" fill="#F2C14E"/><circle cx="6" cy="-34" r="2.6" fill="#F2C14E"/></g>
+          <rect x="170" y="165" width="190" height="67" fill="#8DA9C4" opacity=".72"/>
+          <path class="ripple" d="M200 172 H330" fill="none"/>
+          <!-- Ayah/Bunda -->
+          <g class="fig parent"><use href="#f-adult"/>
+            <g class="eye"><path d="M14 -48 c4 -4 10 -4 14 0 c-4 4 -10 4 -14 0z" fill="#FFFFFF" stroke="#0B2545" stroke-width="1.4"/><circle cx="21" cy="-48" r="2" fill="#0B2545"/></g>
+          </g>
+          <!-- penanda siapa yang mengawasi -->
+          <g class="who">
+            <rect x="-40" y="-12" width="80" height="18" rx="9" fill="#F2C14E"/>
+            <path d="M-5 6 L0 12 L5 6 Z" fill="#F2C14E"/>
+            <text x="0" y="1" text-anchor="middle">MENGAWASI</text>
+          </g>
+        </svg>
+        <div class="steps" role="tablist" aria-label="Langkah">
+          <button type="button" data-step="1" aria-current="step">1. Datang</button>
+          <button type="button" data-step="2">2. Check-in</button>
+          <button type="button" data-step="3">3. Sesi</button>
+          <button type="button" data-step="4">4. Check-out</button>
+        </div>
+        <p class="caption" id="caption" aria-live="polite"></p>
+        <div class="scene-ctl">
+          <small id="scene-hint">Berganti otomatis. Ketuk langkah untuk berhenti.</small>
+          <button type="button" id="replay">Putar ulang</button>
+        </div>
+      </div>
+      <ol class="tl reveal" id="tl" style="--i:3">
         <li>
           <span class="dot" aria-hidden="true"></span>
           <span class="step">Titik 1</span>
@@ -254,7 +346,7 @@
         </li>
         <span class="swimmer" aria-hidden="true"></span>
       </ol>
-      <p class="tl-note reveal" style="--i:3"><b>Catatan penting.</b> Pelatih dan Twenty Swim bertanggung jawab atas peserta hanya selama proses check-in hingga check-out berlangsung. Sebelum dan sesudahnya, anak berada dalam pengawasan Ayah/Bunda.</p>
+      <p class="tl-note reveal" style="--i:4"><b>Catatan penting.</b> Pelatih dan Twenty Swim bertanggung jawab atas peserta hanya selama proses check-in hingga check-out berlangsung. Sebelum dan sesudahnya, anak berada dalam pengawasan Ayah/Bunda.</p>
     </div>
   </section>
 
@@ -447,14 +539,49 @@
     measureTl();
     window.addEventListener('resize', measureTl);
 
+
+    // Adegan penjelas 4 langkah
+    var scene = document.getElementById('scene'), cap = document.getElementById('caption');
+    var stepBtns = document.querySelectorAll('.steps button'), replay = document.getElementById('replay'), hint = document.getElementById('scene-hint');
+    var STEPS = [
+      '<b>1. Datang.</b> Ayah/Bunda dan anak menunggu di area duduk yang disediakan. Anak belum turun ke kolam.<br><span class="badge parent">Yang mengawasi: Ayah/Bunda</span>',
+      '<b>2. Check-in.</b> Pelatih memanggil, anak turun ke kolam hanya bersama pelatih.<br><span class="badge">Yang mengawasi: pelatih</span>',
+      '<b>3. Saat sesi.</b> Pelatih tidak meninggalkan area kolam. Ayah/Bunda tetap di area fasilitas dan memantau dari tempat duduk.<br><span class="badge">Yang mengawasi: pelatih</span>',
+      '<b>4. Check-out.</b> Pelatih menyerahkan anak langsung kepada Ayah/Bunda beserta laporan singkat. Sejak titik ini pengawasan kembali ke Ayah/Bunda, dan bahaya di area kolam masih ada.<br><span class="badge parent">Yang mengawasi: Ayah/Bunda</span>'
+    ];
+    var cur = 1, timer = null, auto = !reduce;
+    function setStep(n) {
+      cur = n;
+      scene.setAttribute('class', 'scene s' + n);
+      cap.innerHTML = STEPS[n - 1];
+      for (var k = 0; k < stepBtns.length; k++) {
+        if (k === n - 1) stepBtns[k].setAttribute('aria-current', 'step'); else stepBtns[k].removeAttribute('aria-current');
+      }
+    }
+    function stopAuto() { auto = false; if (timer) { clearInterval(timer); timer = null; } hint.textContent = 'Ketuk langkah untuk melihat lagi.'; }
+    function startAuto() {
+      if (reduce) { hint.textContent = 'Ketuk langkah untuk melihat setiap tahap.'; return; }
+      auto = true; hint.textContent = 'Berganti otomatis. Ketuk langkah untuk berhenti.';
+      if (timer) clearInterval(timer);
+      timer = setInterval(function () { setStep(cur % 4 + 1); }, 4200);
+    }
+    for (var m = 0; m < stepBtns.length; m++) {
+      stepBtns[m].addEventListener('click', function () { stopAuto(); setStep(+this.getAttribute('data-step')); });
+    }
+    replay.addEventListener('click', function () { setStep(1); startAuto(); });
+    setStep(1);
+    var sceneStarted = false;
+    function maybeStart() { if (!sceneStarted) { sceneStarted = true; startAuto(); } }
+
     var items = document.querySelectorAll('.reveal');
     function showAll() { for (var i = 0; i < items.length; i++) items[i].classList.add('in'); }
-    if (reduce || !('IntersectionObserver' in window)) { showAll(); return; }
+    if (reduce || !('IntersectionObserver' in window)) { showAll(); maybeStart(); return; }
 
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
           if (e.target === tl) measureTl();
+          if (e.target.classList.contains('scene-wrap')) maybeStart();
           e.target.classList.add('in'); io.unobserve(e.target);
         }
       });
