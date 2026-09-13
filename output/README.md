@@ -11,7 +11,7 @@ Semua file HTML berdiri sendiri (CSS di dalam file), memuat font Montserrat dan 
 | `carousel-ig-orangtua/caption.txt` | teks | Caption Instagram + 5 tagar |
 | `whatsapp-onboarding.txt` | teks | 3 pesan siap kirim untuk admin |
 | `halaman-orangtua/index.html` | halaman web, 1 file | Halaman beranimasi 11 aturan untuk orang tua, siap di-hosting di Netlify |
-| `film-orangtua/film-keselamatan-anak-twentyswim.mp4` | video MP4, 1080x1920, 48 detik | Film pendek animasi untuk WhatsApp Status / Instagram Reels |
+| `film-orangtua/film-keselamatan-anak-twentyswim.mp4` | video MP4, 1080x1920, 52 detik | Film pendek grafik-gerak formal untuk WhatsApp Status / Instagram Reels |
 | `film-orangtua/film.html` | halaman animasi, 1 file | Sumber film (garis waktu animasi); dapat dirender ulang jadi MP4 |
 
 ## 1. Menyematkan logo asli
@@ -54,11 +54,11 @@ Nomor WhatsApp admin diisi pada konstanta `NOMOR_WA` di bagian `<script>` paling
 
 ## 5. Film pendek (MP4 untuk WhatsApp / Instagram Reels)
 
-`output/film-orangtua/film-keselamatan-anak-twentyswim.mp4` adalah film vertikal 1080x1920, 48 detik, tanpa suara, dengan karakter manusia beranimasi (Bunda, pelatih, dan anak berbaju cerah) yang bernapas, berkedip, melangkah, memanggil, dan berenang: pembuka brand, alur check-in sampai check-out (siapa yang mengawasi anak di tiap tahap), 3 aturan paling penting (teks persis poster), lalu penutup brand. Ukuran sekitar 1,8 MB, format H.264 yang aman di WhatsApp dan Instagram.
+`output/film-orangtua/film-keselamatan-anak-twentyswim.mp4` adalah film vertikal 1080x1920, 52 detik, tanpa suara, bergaya grafik-gerak formal dan mudah dipahami: pembuka brand, garis waktu tanggung jawab yang menunjukkan siapa yang menjaga anak di tiap tahap (Ayah/Bunda, lalu pelatih dari check-in hingga check-out, lalu kembali ke Ayah/Bunda), ringkasan empat hal yang perlu Ayah/Bunda lakukan, 3 aturan paling penting (teks persis poster), lalu penutup brand. Ukuran sekitar 1,9 MB, format H.264 yang aman di WhatsApp dan Instagram.
 
 Kirim langsung file MP4-nya. Untuk Instagram Reels atau WhatsApp Status, unggah seperti video biasa; rasio 9:16 sudah pas layar penuh HP.
 
-Merender ulang (jika `film.html` diubah): butuh Node.js, Playwright, dan ffmpeg.
+Merender ulang (jika `film.html` diubah): butuh Node.js, Playwright, dan ffmpeg. Durasi film 52 detik (setel `DUR` di `render-film.js` bila panjang film berubah).
 
 ```
 FFMPEG=$(python3 -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())") node output/tools/render-film.js

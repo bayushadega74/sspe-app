@@ -11,7 +11,7 @@ const fs = require('fs');
 const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 
-const FPS = 25, DUR = 48.0, N = Math.round(FPS * DUR);
+const FPS = 25, DUR = 52.0, N = Math.round(FPS * DUR);
 const dir = path.resolve(__dirname, '..', 'film-orangtua');
 const file = path.join(dir, 'film.html');
 const framesDir = path.join(dir, '_frames');
