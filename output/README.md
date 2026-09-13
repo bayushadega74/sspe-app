@@ -54,7 +54,7 @@ Nomor WhatsApp admin diisi pada konstanta `NOMOR_WA` di bagian `<script>` paling
 
 ## 5. Film pendek (MP4 untuk WhatsApp / Instagram Reels)
 
-`output/film-orangtua/film-keselamatan-anak-twentyswim.mp4` adalah film vertikal 1080x1920, 48 detik, tanpa suara: pembuka brand, alur check-in sampai check-out (siapa yang mengawasi anak), 3 aturan paling penting (teks persis poster), lalu penutup brand. Ukuran sekitar 1,6 MB, format H.264 yang aman di WhatsApp dan Instagram.
+`output/film-orangtua/film-keselamatan-anak-twentyswim.mp4` adalah film vertikal 1080x1920, 48 detik, tanpa suara, dengan karakter manusia beranimasi (Bunda, pelatih, dan anak berbaju cerah) yang bernapas, berkedip, melangkah, memanggil, dan berenang: pembuka brand, alur check-in sampai check-out (siapa yang mengawasi anak di tiap tahap), 3 aturan paling penting (teks persis poster), lalu penutup brand. Ukuran sekitar 1,8 MB, format H.264 yang aman di WhatsApp dan Instagram.
 
 Kirim langsung file MP4-nya. Untuk Instagram Reels atau WhatsApp Status, unggah seperti video biasa; rasio 9:16 sudah pas layar penuh HP.
 
