@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bayu Rizki Alfarizi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Bayu Rizki Alfarizi — Sport Educator, Aquatic Therapist, Researcher, Founder Twenty Swim & Twenty Hydro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: satu kolom lebar terbatas; tiap section dipisah "tali lintasan" kolam (lane rope) bergaris lime/navy. */
+:root{
+  --navy:#0c1422;
+  --navy-2:#111b2d;
+  --panel:#16223a;
+  --line:#25324d;
+  --fg:#e9eef6;
+  --muted:#9ca8bf;
+  --lime:#c4ef4a;
+  --lime-dim:#9fc23a;
+  --lime-ink:#0c1422;
+  --aqua:#62c6d3;
+  --f-display:"Bricolage Grotesque","Plus Jakarta Sans",system-ui,sans-serif;
+  --f-body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:14px;
+  --wrap:1120px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--navy);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--navy)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-display);line-height:1.12;text-wrap:balance;margin:0}
+p{margin:0}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+@media (min-width:900px){section{padding-block:104px}}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.sec-head{display:grid;gap:12px;margin-bottom:36px;max-width:680px}
+.sec-head h2{font-size:clamp(28px,4.6vw,44px);font-weight:700}
+.sec-head p{color:var(--muted)}
+.lane{height:6px;background:repeating-linear-gradient(90deg,var(--lime) 0 18px,transparent 18px 26px,var(--line) 26px 44px,transparent 44px 52px);opacity:.55}
+.isi{display:inline-block;font-family:var(--f-mono);font-size:12px;color:var(--lime);border:1px dashed var(--lime-dim);border-radius:6px;padding:2px 8px;background:rgba(196,239,74,.06)}
+.muted{color:var(--muted)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px/1 var(--f-body);padding:14px 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg);text-decoration:none;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{border-color:var(--lime);transform:translateY(-1px)}
+.btn-primary{background:var(--lime);color:var(--lime-ink);border-color:var(--lime)}
+.btn-primary:hover{background:#d3f76c}
+.btn svg{width:16px;height:16px}
+
+/* Navbar */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(12,20,34,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font:800 17px/1 var(--f-display);text-decoration:none}
+.brand i{width:10px;height:26px;background:var(--lime);border-radius:3px;display:block}
+.menu{display:none;gap:4px;list-style:none;margin:0;padding:0}
+.menu a{display:block;padding:8px 12px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:500;color:var(--muted)}
+.menu a:hover,.menu a.active{color:var(--fg);background:var(--panel)}
+.burger{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+.burger svg{width:22px;height:22px}
+.drawer{border-top:1px solid var(--line);background:var(--navy-2)}
+.drawer ul{list-style:none;margin:0;padding:8px 0 16px}
+.drawer a{display:block;padding:12px 4px;text-decoration:none;font-weight:600;border-bottom:1px solid var(--line)}
+@media (min-width:1000px){.menu{display:flex}.burger,.drawer{display:none!important}}
+
+/* Hero */
+.hero{padding-block:48px 72px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -10% -40% 40%;height:70%;background:radial-gradient(closest-side,rgba(98,198,211,.16),transparent);pointer-events:none}
+.hero-grid{display:grid;gap:40px;align-items:center;position:relative;z-index:1}
+@media (min-width:900px){.hero{padding-block:88px 112px}.hero-grid{grid-template-columns:1.25fr .75fr}}
+.roles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.roles span{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.roles span:first-child{border-color:var(--lime);color:var(--lime)}
+.hero h1{font-size:clamp(38px,7.4vw,76px);font-weight:800;letter-spacing:-.02em}
+.hero .creds{display:block;margin-top:12px;font:500 clamp(15px,2vw,19px)/1.4 var(--f-mono);color:var(--lime);letter-spacing:.02em}
+.hero .intro{margin-top:24px;max-width:60ch;color:#c9d2e2;font-size:17px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.portrait{position:relative;justify-self:center;width:min(340px,80vw);aspect-ratio:420/469;max-width:100%}
+.portrait::before{content:"";position:absolute;inset:14% 6% 0 6%;border-radius:200px 200px 24px 24px;background:linear-gradient(170deg,var(--lime) 0%,#7fae1e 100%)}
+.portrait img{position:relative;display:block;width:100%;height:100%;object-fit:contain;object-position:bottom;filter:contrast(1.05)}
+.portrait .tag{position:absolute;left:-6px;bottom:18px;background:var(--navy);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.35;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.portrait .tag b{display:block;font-family:var(--f-display);font-size:18px;color:var(--lime)}
+
+/* Research highlight cards */
+.grid{display:grid;gap:16px}
+@media (min-width:700px){.g2{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:700px) and (max-width:999px){.g4,.g3{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--navy-2);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.badge{align-self:flex-start;font:600 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;border-radius:6px;background:var(--lime);color:var(--lime-ink)}
+.badge.alt{background:transparent;color:var(--aqua);border:1px solid var(--aqua)}
+.badge.pres{background:transparent;color:var(--lime);border:1px solid var(--lime)}
+.r-card h3{font-size:18px;font-weight:700;line-height:1.3}
+.r-meta{font-size:14px;color:var(--muted)}
+.r-meta em{color:#c9d2e2}
+.r-card .year{font:500 13px/1 var(--f-mono);color:var(--muted)}
+.r-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.doi{margin-top:auto;font:500 13px/1.4 var(--f-mono);color:var(--lime);word-break:break-all;text-decoration:none}
+.doi:hover{text-decoration:underline}
+.nodoi{margin-top:auto;font:500 12px/1.4 var(--f-mono);color:var(--muted)}
+
+/* Agenda */
+.agenda{display:grid;gap:12px}
+.ag-item{display:grid;grid-template-columns:84px 1fr;gap:18px;align-items:center;padding:18px;border:1px dashed var(--line);border-radius:var(--r)}
+.ag-date{text-align:center;border-right:1px solid var(--line);padding-right:12px;font-family:var(--f-mono);color:var(--muted);font-size:12px;line-height:1.5}
+.ag-date b{display:block;font:800 26px/1 var(--f-display);color:var(--fg)}
+.ag-item h3{font-size:17px;margin-bottom:4px}
+
+/* Feature block */
+.feature{background:linear-gradient(180deg,var(--navy-2),var(--navy))}
+.feat-grid{display:grid;gap:40px}
+@media (min-width:900px){.feat-grid{grid-template-columns:1fr 1fr;align-items:start}}
+.feat-logo{font:800 clamp(44px,8vw,84px)/.9 var(--f-display);letter-spacing:-.03em}
+.feat-logo span{color:var(--lime)}
+.cities{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.cities span{padding:7px 12px;border-radius:999px;background:var(--panel);font-size:14px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stat{background:var(--navy-2);padding:24px 20px}
+.stat b{display:block;font:800 clamp(36px,6vw,54px)/1 var(--f-display);color:var(--lime);font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:8px;font-size:14px;color:var(--muted)}
+.ticks{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.ticks li{display:grid;grid-template-columns:22px 1fr;gap:10px;color:#c9d2e2}
+.ticks li::before{content:"";width:12px;height:12px;margin-top:7px;border-radius:3px;background:var(--lime)}
+
+/* Services */
+.svc{position:relative}
+.svc .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--panel);color:var(--lime)}
+.svc .ic svg{width:24px;height:24px}
+.svc h3{font-size:19px}
+.svc .sub{font:500 12px/1.4 var(--f-mono);color:var(--aqua);letter-spacing:.04em}
+.svc p{color:var(--muted);font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.chips span{font-size:12px;padding:5px 9px;border-radius:999px;border:1px solid var(--line);color:#c9d2e2}
+.note{font-size:13px;color:var(--muted);border-left:2px solid var(--aqua);padding-left:12px;margin-top:20px;max-width:75ch}
+
+/* CTA banner */
+.banner{border-radius:22px;padding:40px 24px;background:var(--lime);color:var(--lime-ink);display:grid;gap:24px;position:relative;overflow:hidden}
+.banner::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;border:28px solid rgba(12,20,34,.08)}
+.banner h2{font-size:clamp(26px,4.4vw,42px);font-weight:800;max-width:18ch}
+.banner p{max-width:56ch;font-weight:500}
+.banner .btn{background:var(--lime-ink);color:var(--lime);border-color:var(--lime-ink)}
+.banner .btn.ghost{background:transparent;color:var(--lime-ink);border-color:var(--lime-ink)}
+@media (min-width:900px){.banner{padding:56px;grid-template-columns:1.4fr auto;align-items:end}}
+
+/* Testimonials */
+.testi{border-style:dashed;min-height:200px}
+.testi blockquote{margin:0;color:var(--muted);font-style:italic}
+.testi .who{margin-top:auto;display:flex;gap:12px;align-items:center}
+.testi .av{width:40px;height:40px;border-radius:50%;background:var(--panel);border:1px dashed var(--line)}
+
+/* Collab + newsletter */
+.split{display:grid;gap:20px}
+@media (min-width:900px){.split{grid-template-columns:1fr 1fr}}
+.box{border:1px solid var(--line);border-radius:var(--r);padding:28px;background:var(--navy-2);display:grid;gap:16px;align-content:start;min-width:0}
+.box h3{font-size:24px}
+form{display:grid;gap:12px}
+label{font-size:13px;font-weight:600;color:var(--muted)}
+input,textarea,select{width:100%;font:inherit;color:var(--fg);background:var(--navy);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--lime)}
+textarea{min-height:120px;resize:vertical}
+.field{display:grid;gap:6px}
+.form-msg{font-size:14px;color:var(--lime);min-height:1.4em}
+
+/* Timeline */
+.tl{position:relative;display:grid;gap:28px;padding-left:28px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative}
+.tl-item::before{content:"";position:absolute;left:-28px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--navy);border:3px solid var(--lime)}
+.tl-item .when{font:500 13px/1 var(--f-mono);color:var(--lime)}
+.tl-item h3{font-size:22px;margin-top:8px}
+.tl-item .org{color:var(--aqua);font-weight:600;margin-top:4px}
+.tl-item ul{margin:12px 0 0;padding-left:18px;color:#c9d2e2;display:grid;gap:6px;max-width:75ch}
+
+/* Credentials */
+.hl{display:grid;gap:12px;margin-bottom:28px}
+@media (min-width:800px){.hl{grid-template-columns:repeat(3,1fr)}}
+.hl-item{border-radius:var(--r);padding:22px;background:var(--panel);border:1px solid var(--lime-dim);display:grid;gap:6px}
+.hl-item b{font:800 26px/1.1 var(--f-display);color:var(--lime)}
+.hl-item span{font-size:14px;color:#c9d2e2}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:20px;scrollbar-width:thin}
+.tab{flex:none;font:600 14px/1 var(--f-body);padding:11px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--lime);border-color:var(--lime);color:var(--lime-ink)}
+.cred-group h3{font-size:15px;font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--aqua);margin:8px 0 12px}
+.cred-list{display:grid;gap:10px}
+@media (min-width:800px){.cred-list{grid-template-columns:repeat(2,1fr)}}
+.cred{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--navy-2);display:grid;gap:4px;min-width:0}
+.cred b{font-weight:600;line-height:1.4}
+.cred span{font-size:14px;color:var(--muted)}
+.cred .star{color:var(--lime);font-size:13px;font-weight:600}
+
+/* Publications */
+.pubs{display:grid;gap:14px;counter-reset:pub}
+.pub{display:grid;gap:10px;padding:20px;border:1px solid var(--line);border-radius:var(--r);background:var(--navy-2)}
+.pub p{padding-left:2em;text-indent:-2em;color:#d4dbe8;overflow-wrap:anywhere}
+.pub p strong{color:var(--fg)}
+.pub .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.copy{font:500 12px/1 var(--f-mono);padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.copy:hover{color:var(--lime);border-color:var(--lime)}
+.interests{display:flex;flex-wrap:wrap;gap:8px}
+.interests span{padding:9px 14px;border-radius:999px;background:var(--panel);font-weight:600;font-size:14px}
+.pub-side{display:grid;gap:20px;align-content:start}
+.pub-grid{display:grid;gap:28px}
+@media (min-width:1000px){.pub-grid{grid-template-columns:1fr 320px}}
+
+/* Gallery */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:20px}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:700px){.gal{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1000px){.gal{grid-template-columns:repeat(4,1fr)}}
+.ph{position:relative;aspect-ratio:4/3;max-width:100%;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--navy-2);cursor:zoom-in;padding:0;color:inherit;text-align:left;font:inherit}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.ph:hover img{transform:scale(1.04)}
+.ph .ph-empty{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;text-align:center;padding:12px;background:repeating-linear-gradient(135deg,var(--navy-2) 0 14px,var(--panel) 14px 15px)}
+.ph .ph-empty svg{width:28px;height:28px;color:var(--lime-dim)}
+.ph .ph-empty small{font:500 11px/1.3 var(--f-mono);color:var(--muted)}
+.ph .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 10px 8px;font-size:12px;font-weight:600;background:linear-gradient(transparent,rgba(12,20,34,.92))}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(6,10,18,.94);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb-inner{width:min(960px,100%);display:grid;gap:14px}
+.lb-media{aspect-ratio:4/3;max-height:70vh;width:100%;border-radius:12px;overflow:hidden;background:var(--navy-2);display:grid;place-items:center;border:1px solid var(--line)}
+.lb-media img{width:100%;height:100%;object-fit:contain}
+.lb-meta h3{font-size:20px}
+.lb-meta p{color:var(--muted);font-size:14px}
+.lb-bar{display:flex;justify-content:space-between;gap:8px}
+.lb-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--navy-2);color:var(--fg);cursor:pointer;font-size:20px;line-height:1}
+
+/* Contact */
+.contact-list{display:grid;gap:10px}
+.c-item{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--navy);min-width:0}
+.c-item .ic{width:40px;height:40px;border-radius:10px;background:var(--panel);display:grid;place-items:center;color:var(--lime)}
+.c-item .ic svg{width:20px;height:20px}
+.c-item small{display:block;font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.c-item a,.c-item span.v{font-weight:600;text-decoration:none;overflow-wrap:anywhere;user-select:all}
+.c-item a:hover{color:var(--lime)}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding-block:40px;background:var(--navy-2)}
+.foot{display:grid;gap:24px}
+@media (min-width:800px){.foot{grid-template-columns:1fr auto;align-items:center}}
+.socials{display:flex;flex-wrap:wrap;gap:8px}
+.socials a{display:inline-flex;gap:8px;align-items:center;padding:9px 13px;border:1px solid var(--line);border-radius:999px;font-size:13px;font-weight:600;text-decoration:none}
+.socials a:hover{border-color:var(--lime);color:var(--lime)}
+.socials svg{width:15px;height:15px}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--navy);padding:12px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:120;max-width:calc(100% - 32px);text-align:center}
+
+/* Reveal (elemen tetap terlihat; hanya bergeser halus saat masuk layar) */
+.rv{transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s}
+.rv.pre{transform:translateY(22px);opacity:.4}
+</style>
+</head>
+<body>
+
+
+<nav class="nav" aria-label="Navigasi utama">
+  <div class="wrap">
+    <a href="#beranda" class="brand" data-scroll><i></i>Bayu R. Alfarizi</a>
+    <ul class="menu" id="menu">
+      <li><a href="#tentang" data-scroll>Tentang</a></li>
+      <li><a href="#layanan" data-scroll>Layanan</a></li>
+      <li><a href="#riset" data-scroll>Riset &amp; Publikasi</a></li>
+      <li><a href="#pengalaman" data-scroll>Pengalaman</a></li>
+      <li><a href="#kredensial" data-scroll>Kredensial</a></li>
+      <li><a href="#dokumentasi" data-scroll>Dokumentasi</a></li>
+      <li><a href="#kontak" data-scroll>Kontak</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Buka menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div class="drawer" id="drawer" hidden>
+    <ul class="wrap" id="drawer-list"></ul>
+  </div>
+</nav>
+
+<main id="beranda">
+<!-- 1. HERO -->
+<header class="hero" id="tentang">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="roles" aria-label="Peran">
+        <span>Sport Educator</span><span>Aquatic Therapist</span><span>Researcher</span><span>Founder</span>
+      </div>
+      <h1>Bayu Rizki Alfarizi</h1>
+      <span class="creds">S.Pd., CA.HydroT., MCE., AIFO</span>
+      <p class="intro">Lulusan Pendidikan Jasmani (Cum Laude, IPK 3,96) dan mahasiswa magister Fast Track Manajemen Olahraga di Universitas Pendidikan Indonesia. Pendiri Twenty Swim, sekolah renang multi-cabang dengan 1.000+ siswa di Jawa Barat, sekaligus terapis akuatik bersertifikasi internasional (IATF, AASM, SSI). Berpengalaman dalam riset kuasi-eksperimen, mixed methods, SLR, dan scoping review tentang cooperative learning dan tata kelola olahraga digital.</p>
+      <div class="cta-row">
+        <a href="#layanan" class="btn btn-primary" data-scroll>Lihat Layanan
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#kontak" class="btn" data-scroll>Hubungi Saya</a>
+        <a href="#" class="btn" id="cv-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Unduh CV</a>
+      </div>
+    </div>
+    <figure class="portrait" style="margin:0">
+      <img src="data:image/webp;base64,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" alt="Foto profil Bayu Rizki Alfarizi" width="420" height="469">
+      <figcaption class="tag"><b>Twenty Swim</b>Founder &amp; CEO · 2025–sekarang</figcaption>
+    </figure>
+  </div>
+</header>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- 2. SOROTAN RISET -->
+<section id="sorotan">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Sorotan riset</span>
+      <h2>Publikasi dan presentasi terbaru</h2>
+      <p>Topik: tata kelola layanan olahraga digital, model pembelajaran kooperatif, dan sport for development.</p>
+    </div>
+    <div class="grid g4" id="research-cards"></div>
+    <div class="cta-row"><a href="#riset" class="btn" data-scroll>Daftar lengkap &amp; sitasi APA</a></div>
+  </div>
+</section>
+
+<!-- 3. AGENDA -->
+<section id="agenda" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Agenda</span>
+      <h2>Workshop &amp; seminar mendatang</h2>
+    </div>
+    <div class="agenda">
+      <article class="ag-item rv">
+        <div class="ag-date"><b>--</b><span class="isi">[ISI tgl]</span></div>
+        <div><h3><span class="isi">[ISI: judul workshop/seminar]</span></h3><p class="muted">[ISI: penyelenggara · lokasi/daring · tautan pendaftaran]</p></div>
+      </article>
+      <article class="ag-item rv">
+        <div class="ag-date"><b>--</b><span class="isi">[ISI tgl]</span></div>
+        <div><h3><span class="isi">[ISI: judul workshop/seminar]</span></h3><p class="muted">[ISI: penyelenggara · lokasi/daring · tautan pendaftaran]</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- 4. BLOK UNGGULAN -->
+<section class="feature" id="twentyswim">
+  <div class="wrap feat-grid">
+    <div class="rv">
+      <span class="eyebrow">Bisnis unggulan · 2025–sekarang</span>
+      <h2 class="feat-logo" style="margin-top:14px">Twenty<br><span>Swim</span></h2>
+      <p style="margin-top:20px;color:#c9d2e2;max-width:52ch">Sekolah renang multi-cabang di Jawa Barat yang saya dirikan dan pimpin sebagai Founder &amp; CEO.</p>
+      <div class="cities" aria-label="Wilayah cabang"><span>Bandung</span><span>Cimahi</span><span>Sukabumi</span><span>Cianjur</span></div>
+      <ul class="ticks">
+        <li>Kurikulum Swim Schools International (SSI), dari Baby Swim hingga Swim Team Prep.</li>
+        <li>Kemitraan asuransi Askrindo yang mencakup seluruh sesi latihan, serta kemitraan venue.</li>
+        <li>Operasional digital: portal PWA, rapor digital, pencatatan presensi dan kuota paket, dasbor keanggotaan.</li>
+      </ul>
+      <div class="cta-row"><a class="btn btn-primary" href="https://www.instagram.com/twentyswim/" target="_blank" rel="noopener">Instagram @twentyswim</a></div>
+    </div>
+    <div class="stats rv" aria-label="Angka Twenty Swim">
+      <div class="stat"><b data-count="1000" data-suffix="+">1.000+</b><span>siswa</span></div>
+      <div class="stat"><b data-count="52" data-suffix="+">52+</b><span>pelatih &amp; staf</span></div>
+      <div class="stat"><b data-count="35" data-suffix="+">35+</b><span>kolam mitra</span></div>
+      <div class="stat"><b data-count="4" data-suffix="">4</b><span>kota/kabupaten</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. LAYANAN -->
+<section id="layanan">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Layanan</span>
+      <h2>Apa yang bisa saya bantu</h2>
+      <p>Dari kolam renang hingga ruang riset: pelatihan, terapi air, metodologi, dan pengembangan bisnis olahraga.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 17c2 0 2-1.5 4-1.5S8 17 10 17s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M2 21c2 0 2-1.5 4-1.5S8 21 10 21s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="16" cy="6" r="2"/><path d="M5 13l5-5 3 3 3-1"/></svg></div>
+        <span class="sub">Twenty Swim</span>
+        <h3>Swimming Coaching</h3>
+        <p>Program renang berjenjang berbasis kurikulum SSI untuk bayi, anak, hingga dewasa, di cabang Bandung, Cimahi, Sukabumi, dan Cianjur.</p>
+        <div class="chips"><span>Baby Swim</span><span>Swim Team Prep</span><span>SSI</span></div>
+      </article>
+      <article class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></div>
+        <span class="sub">Twenty Hydro</span>
+        <h3>Aquatic Therapy &amp; Hydrotherapy</h3>
+        <p>Program terapi air multi-sesi untuk kasus stroke, HNP/OA, CTS, dan nyeri kompleks, dengan evaluasi menggunakan instrumen formal.</p>
+        <div class="chips"><span>Halliwick/WST</span><span>Bad Ragaz Ring Method</span><span>Clinical Ai Chi</span><span>Watsu</span></div>
+      </article>
+      <article class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><path d="M12 8v6M8 22l4-8 4 8M6 11l6-1 6 1"/></svg></div>
+        <span class="sub">Twenty Move</span>
+        <h3>Stimulasi Motorik Anak</h3>
+        <p>Program stimulasi gerak untuk anak. <span class="isi">[ISI: deskripsi program, usia sasaran, lokasi]</span></p>
+        <div class="chips"><span>Motorik anak</span></div>
+      </article>
+      <article class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 5-6"/></svg></div>
+        <span class="sub">Riset</span>
+        <h3>Konsultasi Riset &amp; Metodologi</h3>
+        <p>Pendampingan desain penelitian, penyusunan tinjauan literatur, validasi instrumen, dan analisis data.</p>
+        <div class="chips"><span>Kuasi-eksperimen</span><span>Mixed methods</span><span>SLR</span><span>Scoping review PRISMA-ScR</span><span>Validasi instrumen</span><span>SPSS</span></div>
+      </article>
+      <article class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+        <span class="sub">Edukasi</span>
+        <h3>Pembicara &amp; Workshop</h3>
+        <p>Materi seputar pendidikan jasmani, akuatik, terapi air, dan manajemen olahraga. Pernah menjadi oral presenter di ICSDP 2025.</p>
+        <div class="chips"><span>Seminar</span><span>Workshop</span><span>Konferensi</span></div>
+      </article>
+      <article class="card svc rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></div>
+        <span class="sub">Manajemen</span>
+        <h3>Pengembangan Operasional Bisnis Olahraga</h3>
+        <p>Berbagi pengalaman membangun operasional multi-cabang: SDM dan penggajian, kemitraan venue, manajemen event, dan pemasaran digital.</p>
+        <div class="chips"><span>Multi-cabang</span><span>HR &amp; payroll</span><span>Kemitraan venue</span><span>Event</span></div>
+      </article>
+    </div>
+    <p class="note rv">Layanan terapi air bersifat pendukung dan tidak menggantikan diagnosis maupun perawatan medis. Respons tiap individu berbeda, sehingga tidak ada jaminan hasil tertentu.</p>
+  </div>
+</section>
+
+<!-- 6. CTA BANNER -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="banner rv">
+      <div style="display:grid;gap:14px;position:relative;z-index:1">
+        <span class="eyebrow" style="color:var(--lime-ink)">Untuk sekolah, klub, dan institusi</span>
+        <h2>Mari bangun program olahraga air bersama</h2>
+        <p>Program renang sekolah, kelas terapi air, pelatihan pelatih, atau kolaborasi riset. Ceritakan kebutuhan Anda.</p>
+      </div>
+      <div class="cta-row" style="margin-top:0;position:relative;z-index:1">
+        <a href="#kontak" class="btn" data-scroll>Ajukan Kolaborasi</a>
+        <a href="https://wa.me/6285892775730" class="btn ghost" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. TESTIMONI -->
+<section id="testimoni" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Testimoni</span>
+      <h2>Kata mereka</h2>
+    </div>
+    <div class="grid g3">
+      <article class="card testi rv"><blockquote><span class="isi">[ISI: kutipan testimoni asli #1]</span></blockquote><div class="who"><div class="av" aria-hidden="true"></div><div><b class="isi">[ISI: nama]</b><div class="muted" style="font-size:13px">[ISI: peran / institusi]</div></div></div></article>
+      <article class="card testi rv"><blockquote><span class="isi">[ISI: kutipan testimoni asli #2]</span></blockquote><div class="who"><div class="av" aria-hidden="true"></div><div><b class="isi">[ISI: nama]</b><div class="muted" style="font-size:13px">[ISI: peran / institusi]</div></div></div></article>
+      <article class="card testi rv"><blockquote><span class="isi">[ISI: kutipan testimoni asli #3]</span></blockquote><div class="who"><div class="av" aria-hidden="true"></div><div><b class="isi">[ISI: nama]</b><div class="muted" style="font-size:13px">[ISI: peran / institusi]</div></div></div></article>
+    </div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- 8 & 9. KOLABORASI + NEWSLETTER -->
+<section id="kolaborasi">
+  <div class="wrap split">
+    <div class="box rv">
+      <span class="eyebrow">Kolaborasi</span>
+      <h3>Riset &amp; kemitraan</h3>
+      <p class="muted">Terbuka untuk kolaborasi penelitian di bidang cooperative learning, fundamental movement skills, self-efficacy dalam aktivitas fisik, manajemen &amp; tata kelola olahraga, serta terapi akuatik. Juga terbuka untuk kemitraan venue, sekolah, dan klub.</p>
+      <div class="cta-row" style="margin-top:4px"><a href="#kontak" class="btn btn-primary" data-scroll>Hubungi Saya</a><a href="https://orcid.org/0009-0003-2232-0830" class="btn" target="_blank" rel="noopener">ORCID</a></div>
+    </div>
+    <div class="box rv">
+      <span class="eyebrow">Newsletter</span>
+      <h3>Kabar terbaru</h3>
+      <p class="muted">Info workshop, publikasi, dan program baru.</p>
+      <form id="nl-form" novalidate>
+        <div class="field"><label for="nl-name">Nama</label><input id="nl-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="nl-email">Email</label><input id="nl-email" name="email" type="email" autocomplete="email" required></div>
+        <button class="btn btn-primary" type="submit" style="justify-self:start">Berlangganan</button>
+        <p class="form-msg" id="nl-msg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- PENGALAMAN -->
+<section id="pengalaman">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Pengalaman</span>
+      <h2>Perjalanan profesional</h2>
+    </div>
+    <div class="tl">
+      <article class="tl-item rv">
+        <span class="when">2025 – sekarang</span>
+        <h3>Founder &amp; CEO</h3>
+        <div class="org">Twenty Swim</div>
+        <ul>
+          <li>Memimpin sekolah renang di Bandung, Cimahi, Sukabumi, dan Cianjur: 1.000+ siswa, 52+ pelatih dan staf, serta 35+ kolam mitra.</li>
+          <li>Menerapkan kurikulum Swim Schools International (SSI) dari Baby Swim hingga Swim Team Prep.</li>
+          <li>Membangun operasional digital: portal PWA, rapor digital, pencatatan presensi dan kuota paket, serta dasbor keanggotaan.</li>
+          <li>Menjalin kemitraan asuransi Askrindo yang mencakup seluruh sesi latihan, serta kemitraan venue.</li>
+        </ul>
+      </article>
+      <article class="tl-item rv">
+        <span class="when">2025 – sekarang</span>
+        <h3>Founder &amp; CEO</h3>
+        <div class="org">Twenty Hydro – Aquatic Therapy</div>
+        <ul>
+          <li>Menyelenggarakan program hidroterapi multi-sesi untuk kasus stroke, HNP/OA, CTS, dan nyeri kompleks, dievaluasi dengan instrumen formal.</li>
+          <li>Menerapkan Halliwick/WST, Bad Ragaz Ring Method, Clinical Ai Chi, dan Watsu.</li>
+        </ul>
+      </article>
+      <article class="tl-item rv">
+        <span class="when">2023 – 2024</span>
+        <h3>Technical Official</h3>
+        <div class="org">West Java Aquatic Championships</div>
+        <ul>
+          <li>TAFT West Java (2024).</li>
+          <li>Piala Kadisdik Sumedang Swimming and Diving Championships, tingkat Jawa Barat (2023).</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- KREDENSIAL -->
+<section id="kredensial">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Kredensial</span>
+      <h2>Pendidikan, sertifikasi &amp; penghargaan</h2>
+    </div>
+    <div class="hl">
+      <div class="hl-item rv"><b>Cum Laude · IPK 3,96</b><span>S.Pd. Pendidikan Jasmani Sekolah Dasar, Universitas Pendidikan Indonesia, 2026</span></div>
+      <div class="hl-item rv"><b>IATF · 2026</b><span>International Aquatic Therapy Training: Halliwick/WST, Bad Ragaz Ring Method, Clinical Ai Chi, Aqua-T-Relax (Jul 2026)</span></div>
+      <div class="hl-item rv"><b>Best Participant</b><span>Swimming Coach Training Category "D", Akuatik Indonesia, Kab. Karawang, 2024</span></div>
+    </div>
+    <div class="tabs" role="tablist" id="cred-tabs" aria-label="Kategori kredensial"></div>
+    <div id="cred-panel" role="tabpanel"></div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- RISET & PUBLIKASI -->
+<section id="riset">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Riset &amp; publikasi</span>
+      <h2>Daftar publikasi</h2>
+      <p>Format sitasi APA 7. Tombol salin menyalin sitasi apa adanya.</p>
+    </div>
+    <div class="pub-grid">
+      <div class="pubs" id="pub-list"></div>
+      <aside class="pub-side">
+        <div class="box">
+          <span class="eyebrow">ORCID iD</span>
+          <p style="font-family:var(--f-mono);font-size:15px">0009-0003-2232-0830</p>
+          <a class="btn btn-primary" href="https://orcid.org/0009-0003-2232-0830" target="_blank" rel="noopener" style="justify-self:start">Buka profil ORCID</a>
+        </div>
+        <div class="box">
+          <span class="eyebrow">Minat riset</span>
+          <div class="interests"><span>Cooperative learning (TGfU, Jigsaw, TGT)</span><span>Fundamental movement skills (FMS)</span><span>Self-efficacy dalam aktivitas fisik</span><span>Manajemen &amp; tata kelola olahraga</span><span>Aquatic therapy</span></div>
+        </div>
+        <div class="box">
+          <span class="eyebrow">Keahlian metodologi</span>
+          <p class="muted" style="font-size:15px">Desain kuasi-eksperimen, mixed methods, systematic literature review (SLR), scoping review (PRISMA-ScR), validasi instrumen, SPSS.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- DOKUMENTASI -->
+<section id="dokumentasi">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Dokumentasi</span>
+      <h2>Galeri kegiatan</h2>
+      <p>Pilih kategori, lalu klik foto untuk memperbesar.</p>
+    </div>
+    <div class="filters" role="tablist" id="gal-filters" aria-label="Filter galeri"></div>
+    <div class="gal" id="gallery"></div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Kontak</span>
+      <h2>Mari berdiskusi</h2>
+      <p>Untuk kelas renang, terapi air, kolaborasi riset, atau undangan pembicara.</p>
+    </div>
+    <div class="split">
+      <div class="contact-list rv">
+        <div class="c-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><div><small>Telepon / WhatsApp</small><a href="https://wa.me/6285892775730" target="_blank" rel="noopener">+62 858-9277-5730</a></div><button class="copy" data-copy="+62 858-9277-5730">Salin</button></div>
+        <div class="c-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><div><small>Email (UPI)</small><span class="v">bayurizki.alfarizi80@upi.edu</span></div><button class="copy" data-copy="bayurizki.alfarizi80@upi.edu">Salin</button></div>
+        <div class="c-item"><div class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3s-2.12 1.43-2.12 2.9V21H9z"/></svg></div><div><small>LinkedIn</small><a href="https://www.linkedin.com/in/bayu-rizki-alfarizi-3b282327a" target="_blank" rel="noopener">bayu-rizki-alfarizi-3b282327a</a></div><span></span></div>
+        <div class="c-item"><div class="ic"><b style="font:800 14px var(--f-display)">iD</b></div><div><small>ORCID</small><a href="https://orcid.org/0009-0003-2232-0830" target="_blank" rel="noopener">0009-0003-2232-0830</a></div><span></span></div>
+        <div class="c-item"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div><small>Lokasi</small><span class="v" style="user-select:text">Bandung, Jawa Barat, Indonesia</span></div><span></span></div>
+      </div>
+      <div class="box rv">
+        <h3>Kirim pesan</h3>
+        <form id="ct-form" novalidate>
+          <div class="field"><label for="ct-name">Nama</label><input id="ct-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="ct-email">Email</label><input id="ct-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="ct-topic">Keperluan</label>
+            <select id="ct-topic" name="topic"><option>Kelas renang</option><option>Terapi air</option><option>Konsultasi riset</option><option>Pembicara / workshop</option><option>Kemitraan / kolaborasi</option><option>Lainnya</option></select></div>
+          <div class="field"><label for="ct-msg">Pesan</label><textarea id="ct-msg" name="message" required></textarea></div>
+          <button class="btn btn-primary" type="submit" style="justify-self:start">Kirim Pesan</button>
+          <p class="form-msg" id="ct-msg-out" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a href="#beranda" class="brand" data-scroll><i></i>Bayu Rizki Alfarizi</a>
+      <p class="muted" style="margin-top:10px;font-size:14px">Sport Educator · Aquatic Therapist · Researcher · Founder</p>
+      <p class="muted" style="margin-top:6px;font-size:13px">© 2026 Bayu Rizki Alfarizi</p>
+    </div>
+    <div class="socials">
+      <a href="https://www.instagram.com/twentyswim/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@twentyswim</a>
+      <a href="https://www.instagram.com/mrbayu.aqua/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@mrbayu.aqua</a>
+      <a href="https://www.tiktok.com/@mrbayu.aqua" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.2 1.7 3.8 4 4v3.2c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.3a2.8 2.8 0 1 0 1.8 2.6V3z"/></svg>TikTok @mrbayu.aqua</a>
+      <a href="https://www.linkedin.com/in/bayu-rizki-alfarizi-3b282327a" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3s-2.12 1.43-2.12 2.9V21H9z"/></svg>LinkedIn</a>
+      <a href="https://orcid.org/0009-0003-2232-0830" target="_blank" rel="noopener"><b style="font-family:var(--f-display)">iD</b>ORCID</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lb" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+  <div class="lb-inner">
+    <div class="lb-bar"><span></span><button class="lb-btn" id="lb-close" aria-label="Tutup">×</button></div>
+    <div class="lb-media" id="lb-media"></div>
+    <div class="lb-bar" style="align-items:flex-start">
+      <button class="lb-btn" id="lb-prev" aria-label="Foto sebelumnya">‹</button>
+      <div class="lb-meta" style="flex:1;min-width:0"><h3 id="lb-title"></h3><p id="lb-desc"></p></div>
+      <button class="lb-btn" id="lb-next" aria-label="Foto berikutnya">›</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+/* ================================================================
+   PENGATURAN — ubah bagian ini saja untuk memperbarui konten.
+   ================================================================ */
+
+// Tautan "Unduh CV": isi dengan URL file CV (mis. tautan Google Drive yang dibagikan publik).
+const CV_URL = ""; // [ISI]
+
+// Publikasi (sumber: CV). Urutan = urutan tampil. 4 teratas tampil di Sorotan Riset.
+const PUBLIKASI = [
+  { label:"Proceedings", tahun:2026,
+    judul:"Digital service policy implementation at Dispora Jabar: A systematic literature review",
+    venue:"Proceedings of The International Conference on Primary and Physical Education (ICOPED) 2026",
+    doi:"",
+    apa:'Saputra, Y. M., & <strong>Alfarizi, B. R.</strong> (2026). Digital service policy implementation at Dispora Jabar: A systematic literature review. In <em>Proceedings of The International Conference on Primary and Physical Education (ICOPED) 2026</em> (pp. 63–67).' },
+  { label:"Published", tahun:2026,
+    judul:"Perbandingan efektivitas antara model kooperatif Jigsaw dan TGT dalam meningkatkan keterampilan bermain sepak bola pada siswa sekolah dasar",
+    venue:"Gelanggang Olahraga: Jurnal Pendidikan Jasmani dan Olahraga, 9(4)",
+    doi:"10.31539/ax350s77",
+    apa:'<strong>Alfarizi, B. R.</strong>, Mahendra, A., & Mukhlisin. (2026). Perbandingan efektivitas antara model kooperatif Jigsaw dan TGT dalam meningkatkan keterampilan bermain sepak bola pada siswa sekolah dasar. <em>Gelanggang Olahraga: Jurnal Pendidikan Jasmani dan Olahraga, 9</em>(4), 1518–1531. https://doi.org/10.31539/ax350s77' },
+  { label:"Presentation", tahun:2025,
+    judul:"A scoping review of sport for development research and practice",
+    venue:"Oral presenter, The 10th International Conference of Sport for Development and Peace (ICSDP) 2025, UPI Bandung, 26–27 Nov 2025",
+    doi:"",
+    apa:'<strong>Alfarizi, B. R.</strong> (2025). A scoping review of sport for development research and practice. Oral presenter, <em>The 10th International Conference of Sport for Development and Peace (ICSDP) 2025</em>, Universitas Pendidikan Indonesia, Bandung, 26–27 November 2025.' },
+  { label:"Published", tahun:2025,
+    judul:"Hubungan integrasi nilai-nilai Islam dengan hasil belajar mahasiswa PGSD Pendidikan Jasmani",
+    venue:"DIRASAH, 8(2)",
+    doi:"",
+    apa:'Putri, N. A., <strong>Alfarizi, B. R.</strong>, Nurhalim, I., Subagja, N. A., Wahyudi, A., & Parhan, M. (2025). Hubungan integrasi nilai-nilai Islam dengan hasil belajar mahasiswa PGSD Pendidikan Jasmani. <em>DIRASAH, 8</em>(2), 594–603.' }
+];
+
+// Kredensial (sumber: CV), dikelompokkan per kategori.
+const KREDENSIAL = {
+  "Pendidikan": [
+    { grup:"", items:[
+      { n:"Master of Sport Education (Sport Management)", d:"Universitas Pendidikan Indonesia · Fast Track Program · sedang berjalan" },
+      { n:"Bachelor of Education (S.Pd.), Primary School Physical Education", d:"Universitas Pendidikan Indonesia · 2022 – 2026", s:"★ IPK 3,96/4,00 · Cum Laude" },
+      { n:"Senior High School — Science", d:"SMAN 1 Sukaraja, Kabupaten Sukabumi · 2019 – 2022", s:"★ Top male student, Class XII Science 3 · 2021/22" }
+    ]}
+  ],
+  "Sertifikasi Internasional": [
+    { grup:"Aquatic Therapy & Hydrotherapy", items:[
+      { n:"International Aquatic Therapy Training: Halliwick/WST, Bad Ragaz Ring Method, Clinical Ai Chi, Aqua-T-Relax (Johan Lambeck & Anne Bommer)", d:"IATF · Jul 2026" },
+      { n:"Hydrotherapy for Neurological Disorders – Advanced", d:"AASM / Neurosensory Institute · Apr 2025" },
+      { n:"Hydrotherapy – Basic (HNP & Scoliosis)", d:"AASM / Neurosensory Institute · Jan 2024" },
+      { n:"Master Class Baby Swim Spa + Aquanatal (Neurosensory-based)", d:"AASM · Jun 2025" },
+      { n:"Master Class Early Childhood + Special Needs Children (Neurosensory-based)", d:"AASM · Jun 2025" }
+    ]},
+    { grup:"Swim Instruction — Swim Schools International (SSI), Okt 2025", items:[
+      { n:"Swim Teacher Level I", d:"SSI" }, { n:"Swim Teacher Level II", d:"SSI" },
+      { n:"Swim Teacher Adult", d:"SSI" }, { n:"Baby & Me Swim Teacher", d:"SSI" }, { n:"React Right", d:"SSI" }
+    ]}
+  ],
+  "Lisensi": [
+    { grup:"Coaching & Officiating", items:[
+      { n:'Swimming Coach License, Category "C"', d:"Jawa Barat" },
+      { n:'Swimming Coach License, Category "D"', d:"Akuatik Indonesia, Kab. Karawang · Feb 2024" },
+      { n:'Swimming Referee & Judge License, Category "D"', d:"" }
+    ]},
+    { grup:"Sport Science", items:[
+      { n:"Competency Certificate: Sport Physiology Expert (Ahli Ilmu Faal Olahraga, AIFO) — Exercise Physiologist", d:"BNSP, LSP Kesehatan Olahraga · Des 2025 (berlaku 3 tahun)" }
+    ]}
+  ],
+  "Teknologi Pendidikan": [
+    { grup:"", items:[
+      { n:"Microsoft Certified Educator (MCE): Technology Literacy for Educators — 21st Century Learning Design", d:"Microsoft · Nov 2025" },
+      { n:"Gemini Certified Student (University)", d:"Google for Education · Jun 2026" }
+    ]}
+  ],
+  "Penghargaan": [
+    { grup:"", items:[
+      { n:'Best Participant, Swimming Coach Training Category "D"', d:"Akuatik Indonesia, Kab. Karawang · 2024", s:"★ Penghargaan" },
+      { n:"Cum Laude Graduate", d:"Universitas Pendidikan Indonesia · 2026", s:"★ Penghargaan" }
+    ]}
+  ]
+};
+
+/* GALERI — tambah foto cukup dengan menambah objek ke array ini.
+   src       : URL gambar (https://...) atau data URI. Kosongkan "" = placeholder.
+   kategori  : salah satu dari KATEGORI_GALERI di bawah.
+   judul, tanggal, keterangan : teks bebas.
+   Contoh:
+   { src:"https://contoh.com/foto1.jpg", kategori:"Melatih Renang", judul:"Kelas Baby Swim", tanggal:"Okt 2026", keterangan:"Cabang Bandung" }, */
+const KATEGORI_GALERI = ["Melatih Renang","Aquatic Therapy","Konferensi & Presentasi","Event & Kompetisi","Sertifikasi"];
+const GALERI = [
+  { src:"", kategori:"Melatih Renang", judul:"[ISI] Kelas Twenty Swim", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Melatih Renang", judul:"[ISI] Sesi latihan", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Melatih Renang", judul:"[ISI] Kelas Baby Swim", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Aquatic Therapy", judul:"[ISI] Sesi Twenty Hydro", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto, pastikan ada izin klien]" },
+  { src:"", kategori:"Aquatic Therapy", judul:"[ISI] Pelatihan IATF", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Konferensi & Presentasi", judul:"[ISI] Oral presentation ICSDP 2025", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Konferensi & Presentasi", judul:"[ISI] ICOPED 2026", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Event & Kompetisi", judul:"[ISI] Technical Official TAFT Jabar 2024", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Event & Kompetisi", judul:"[ISI] Piala Kadisdik Sumedang 2023", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Sertifikasi", judul:"[ISI] Sertifikat SSI", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" },
+  { src:"", kategori:"Sertifikasi", judul:"[ISI] Sertifikat AIFO (BNSP)", tanggal:"[ISI]", keterangan:"[ISI: keterangan foto]" }
+];
+
+/* ================================================================
+   LOGIKA HALAMAN — tidak perlu diubah.
+   ================================================================ */
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let toastT;
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,2600); }
+
+// Smooth scroll for in-page links (offset for sticky nav)
+function goTo(id){
+  const el = document.getElementById(id); if(!el) return;
+  const y = el.getBoundingClientRect().top + scrollY - ($(".nav").offsetHeight - 1);
+  scrollTo({ top:y, behavior: reduce ? "auto" : "smooth" });
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-scroll]"); if(!a) return;
+  e.preventDefault(); goTo(a.getAttribute("href").slice(1)); closeDrawer();
+});
+
+// Mobile drawer
+const burger=$("#burger"), drawer=$("#drawer");
+$("#drawer-list").innerHTML = $("#menu").innerHTML;
+function closeDrawer(){ drawer.hidden=true; burger.setAttribute("aria-expanded","false"); }
+burger.addEventListener("click", () => { const open = drawer.hidden; drawer.hidden=!open; burger.setAttribute("aria-expanded", String(open)); });
+
+// Active menu item on scroll
+const navIds=["tentang","layanan","riset","pengalaman","kredensial","dokumentasi","kontak"];
+const navObs = new IntersectionObserver(es => es.forEach(en => {
+  if(en.isIntersecting) document.querySelectorAll(".menu a").forEach(a => a.classList.toggle("active", a.getAttribute("href")==="#"+en.target.id));
+}), { rootMargin:"-45% 0px -50% 0px" });
+navIds.forEach(id => { const el=document.getElementById(id); if(el) navObs.observe(el); });
+
+// CV button
+$("#cv-btn").addEventListener("click", e => {
+  if(!CV_URL){ e.preventDefault(); toast("Tautan CV belum diisi (CV_URL)."); return; }
+  e.currentTarget.href = CV_URL; e.currentTarget.target="_blank"; e.currentTarget.rel="noopener";
+});
+
+// Research highlight cards + full list
+const badgeCls = l => l==="Published" ? "badge" : l==="Presentation" ? "badge pres" : "badge alt";
+$("#research-cards").innerHTML = PUBLIKASI.slice(0,4).map(p => `
+  <article class="card r-card rv">
+    <div class="r-top"><span class="${badgeCls(p.label)}">${esc(p.label)}</span><span class="year">${p.tahun}</span></div>
+    <h3>${esc(p.judul)}</h3>
+    <p class="r-meta"><em>${esc(p.venue)}</em></p>
+    ${p.doi ? `<a class="doi" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">DOI ${esc(p.doi)} ↗</a>` : `<span class="nodoi">Tanpa DOI</span>`}
+  </article>`).join("");
+$("#pub-list").innerHTML = PUBLIKASI.map((p,i) => `
+  <article class="pub rv">
+    <div class="row"><span class="${badgeCls(p.label)}">${esc(p.label)}</span><span class="year" style="font:500 13px var(--f-mono);color:var(--muted)">${p.tahun}</span></div>
+    <p id="apa-${i}">${p.apa}</p>
+    <div class="row">
+      <button class="copy" data-copy-from="apa-${i}">Salin sitasi</button>
+      ${p.doi ? `<a class="doi" style="margin:0" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">https://doi.org/${esc(p.doi)} ↗</a>` : ""}
+    </div>
+  </article>`).join("");
+
+// Credentials tabs
+const credKeys = Object.keys(KREDENSIAL);
+function renderCred(k){
+  document.querySelectorAll("#cred-tabs .tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.k===k)));
+  $("#cred-panel").innerHTML = KREDENSIAL[k].map(g => `
+    <div class="cred-group">${g.grup ? `<h3>${esc(g.grup)}</h3>` : ""}
+      <div class="cred-list">${g.items.map(it => `<div class="cred"><b>${esc(it.n)}</b>${it.d?`<span>${esc(it.d)}</span>`:""}${it.s?`<span class="star">${esc(it.s)}</span>`:""}</div>`).join("")}</div>
+    </div>`).join("");
+}
+$("#cred-tabs").innerHTML = credKeys.map(k => `<button class="tab" role="tab" data-k="${esc(k)}">${esc(k)}</button>`).join("");
+$("#cred-tabs").addEventListener("click", e => { const b=e.target.closest(".tab"); if(b) renderCred(b.dataset.k); });
+renderCred(credKeys[0]);
+
+// Gallery
+let galFilter = "Semua", galView = [];
+const camIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>`;
+function renderFilters(){
+  $("#gal-filters").innerHTML = ["Semua", ...KATEGORI_GALERI].map(k => {
+    const n = k==="Semua" ? GALERI.length : GALERI.filter(g => g.kategori===k).length;
+    return `<button class="tab" role="tab" data-k="${esc(k)}" aria-selected="${k===galFilter}">${esc(k)} <span style="opacity:.6">${n}</span></button>`;
+  }).join("");
+}
+function renderGallery(){
+  galView = GALERI.filter(g => galFilter==="Semua" || g.kategori===galFilter);
+  $("#gallery").innerHTML = galView.map((g,i) => `
+    <button class="ph" data-i="${i}" aria-label="Perbesar: ${esc(g.judul)}">
+      ${g.src ? `<img src="${esc(g.src)}" alt="${esc(g.judul)}" loading="lazy">` : `<span class="ph-empty">${camIcon}<small>${esc(g.kategori)}<br>placeholder foto</small></span>`}
+      <span class="cap">${esc(g.judul)}</span>
+    </button>`).join("");
+}
+$("#gal-filters").addEventListener("click", e => { const b=e.target.closest(".tab"); if(!b) return; galFilter=b.dataset.k; renderFilters(); renderGallery(); });
+renderFilters(); renderGallery();
+
+// Lightbox
+let lbI = 0, lastFocus = null;
+const lb = $("#lightbox");
+function showLb(i){
+  lbI = (i + galView.length) % galView.length; const g = galView[lbI];
+  $("#lb-media").innerHTML = g.src ? `<img src="${esc(g.src)}" alt="${esc(g.judul)}">` : `<span class="muted" style="font-family:var(--f-mono);font-size:13px;text-align:center;padding:16px">Placeholder · ${esc(g.kategori)}<br>Tambahkan "src" di array GALERI</span>`;
+  $("#lb-title").textContent = g.judul;
+  $("#lb-desc").textContent = [g.tanggal, g.kategori, g.keterangan].filter(Boolean).join(" · ");
+}
+$("#gallery").addEventListener("click", e => { const b=e.target.closest(".ph"); if(!b) return; lastFocus=b; showLb(+b.dataset.i); lb.hidden=false; $("#lb-close").focus(); document.body.style.overflow="hidden"; });
+function closeLb(){ lb.hidden=true; document.body.style.overflow=""; lastFocus && lastFocus.focus(); }
+$("#lb-close").onclick = closeLb;
+$("#lb-prev").onclick = () => showLb(lbI-1);
+$("#lb-next").onclick = () => showLb(lbI+1);
+lb.addEventListener("click", e => { if(e.target===lb) closeLb(); });
+document.addEventListener("keydown", e => {
+  if(lb.hidden) return;
+  if(e.key==="Escape") closeLb(); if(e.key==="ArrowLeft") showLb(lbI-1); if(e.key==="ArrowRight") showLb(lbI+1);
+});
+
+// Copy buttons
+document.addEventListener("click", async e => {
+  const b = e.target.closest("[data-copy],[data-copy-from]"); if(!b) return;
+  const src = b.dataset.copyFrom ? document.getElementById(b.dataset.copyFrom) : null;
+  const text = src ? src.textContent.trim() : b.dataset.copy;
+  try { await navigator.clipboard.writeText(text); toast("Tersalin"); }
+  catch { if(src){ const r=document.createRange(); r.selectNodeContents(src); const s=getSelection(); s.removeAllRanges(); s.addRange(r); } toast("Teks sudah dipilih, salin manual (Ctrl/Cmd + C)"); }
+});
+
+// Display-only forms
+function demoForm(id, out, okMsg){
+  $(id).addEventListener("submit", e => {
+    e.preventDefault();
+    const f = e.currentTarget, bad = [...f.querySelectorAll("[required]")].find(x => !x.value.trim() || (x.type==="email" && !/^\S+@\S+\.\S+$/.test(x.value)));
+    if(bad){ $(out).textContent = "Lengkapi kolom " + f.querySelector(`label[for="${bad.id}"]`).textContent.toLowerCase() + " dengan benar."; bad.focus(); return; }
+    $(out).textContent = okMsg; f.reset();
+  });
+}
+demoForm("#nl-form", "#nl-msg", "Formulir ini masih tampilan saja dan belum terhubung ke layanan newsletter.");
+demoForm("#ct-form", "#ct-msg-out", "Formulir ini masih tampilan saja; pesan belum terkirim. Silakan hubungi via WhatsApp atau email.");
+
+// Scroll reveal (only for elements below the first screen)
+if(!reduce && "IntersectionObserver" in window){
+  const els = [...document.querySelectorAll(".rv")].filter(el => el.getBoundingClientRect().top > innerHeight);
+  els.forEach(el => el.classList.add("pre"));
+  const io = new IntersectionObserver(es => es.forEach(en => { if(en.isIntersecting){ en.target.classList.remove("pre"); io.unobserve(en.target); } }), { rootMargin:"0px 0px -8% 0px" });
+  els.forEach(el => io.observe(el));
+}
+
+// Animated counters
+const fmt = n => n.toLocaleString("id-ID");
+const counters = document.querySelectorAll("[data-count]");
+if(!reduce && "IntersectionObserver" in window){
+  const co = new IntersectionObserver(es => es.forEach(en => {
+    if(!en.isIntersecting) return; co.unobserve(en.target);
+    const el=en.target, end=+el.dataset.count, suf=el.dataset.suffix, t0=performance.now(), dur=1400;
+    const step = t => { const p=Math.min(1,(t-t0)/dur), v=Math.round(end*(1-Math.pow(1-p,3))); el.textContent=fmt(v)+suf; if(p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }), { threshold:.4 });
+  counters.forEach(c => co.observe(c));
+}
+</script>
+
+</body>
+</html>
