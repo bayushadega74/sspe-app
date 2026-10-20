@@ -59,7 +59,6 @@ section{padding-block:72px}
 .eyebrow::before{content:"";flex:none;width:22px;height:2px;border-radius:2px;background:var(--lime-deep)}
 .sec-head{display:grid;gap:12px;margin-bottom:36px;max-width:680px;justify-items:start}
 .sec-head h2{font-size:clamp(28px,4.6vw,44px);font-weight:700}
-.sec-head h2::after{content:"✦";display:inline-block;margin-left:6px;font-size:.45em;vertical-align:super;color:var(--lime-deep)}
 .sec-head p{color:var(--muted)}
 .lane{height:5px;background:repeating-linear-gradient(90deg,var(--lime) 0 18px,transparent 18px 26px,var(--line) 26px 44px,transparent 44px 52px)}
 .isi{display:inline-block;font-family:var(--f-mono);font-size:12px;color:var(--lime-deep);border:1px dashed var(--lime-deep);border-radius:6px;padding:2px 8px;background:var(--lime-soft)}
@@ -123,7 +122,7 @@ section{padding-block:72px}
 .marquee:hover .marquee-track{animation-play-state:paused}
 .marquee ul{display:flex;align-items:center;list-style:none;margin:0;padding:18px 0;flex:none}
 .marquee li{display:flex;align-items:center;gap:28px;padding-right:28px;font:700 clamp(17px,2.4vw,22px)/1 var(--f-display);white-space:nowrap}
-.marquee li::after{content:"✦";color:var(--lime);font-size:.8em}
+.marquee li::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}
 @keyframes marq{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.marquee{overflow-x:auto}.marquee-track{animation:none}}
 
@@ -172,12 +171,12 @@ section{padding-block:72px}
 
 /* Services */
 .svc{position:relative}
-.svc .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--lime-soft);color:var(--lime-deep)}
-.svc .ic svg{width:24px;height:24px}
+.svc{border-top:3px solid var(--lime)}
+.svc-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .svc h3{font-size:19px}
 .svc .sub{font:600 12px/1.4 var(--f-mono);color:var(--teal);letter-spacing:.04em}
 .svc p{color:var(--muted);font-size:15px}
-.svc .soon{position:absolute;top:22px;right:22px;font:600 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--ink);color:var(--lime)}
+.svc .soon{font:600 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--ink);color:var(--lime)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
 .chips > span{font-size:12px;padding:5px 10px;border-radius:999px;background:var(--soft);color:#3a414a}
 .note{font-size:13px;color:var(--muted);border-left:2px solid var(--teal);padding-left:12px;margin-top:20px;max-width:75ch}
@@ -264,7 +263,6 @@ section{padding-block:72px}
 .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
 .ph:hover img{transform:scale(1.04)}
 .ph .ph-empty{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;text-align:center;padding:12px;background:repeating-linear-gradient(135deg,var(--surface) 0 14px,var(--soft) 14px 15px)}
-.ph .ph-empty svg{width:28px;height:28px;color:var(--lime-deep)}
 .ph .ph-empty small{font:500 11px/1.3 var(--f-mono);color:var(--muted)}
 .ph .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 10px 8px;font-size:12px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(17,20,24,.85))}
 .lb{position:fixed;inset:0;z-index:100;background:rgba(10,12,15,.94);color:#fff;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
@@ -294,10 +292,9 @@ section{padding-block:72px}
 .info-card .copy:hover{color:var(--lime);border-color:var(--lime)}
 .stay{margin-top:auto;background:var(--lime);color:var(--lime-ink);padding:22px 28px;display:grid;gap:12px}
 .stay h4{margin:0;font:700 15px/1.2 var(--f-display)}
-.stay-icons{display:flex;flex-wrap:wrap;gap:10px}
-.stay-icons a{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--lime-ink);color:var(--lime);text-decoration:none;font:800 13px var(--f-display)}
+.stay-icons{display:flex;flex-wrap:wrap;gap:8px}
+.stay-icons a{padding:8px 13px;border-radius:999px;background:var(--lime-ink);color:#fff;text-decoration:none;font:600 13px/1.2 var(--f-body)}
 .stay-icons a:hover{background:#000}
-.stay-icons svg{width:18px;height:18px}
 
 /* Footer */
 footer{padding-block:40px;background:var(--dark);color:#fff}
@@ -366,11 +363,9 @@ footer .muted{color:var(--dark-muted)}
       <p class="intro" data-l="id">Lulusan Pendidikan Jasmani (Cum Laude, IPK 3,96) dan mahasiswa magister Fast Track Manajemen Olahraga di Universitas Pendidikan Indonesia. Pendiri Twenty Swim, sekolah renang multi-cabang dengan 1.000+ siswa di Jawa Barat, sekaligus terapis akuatik dengan sertifikasi hidroterapi internasional (AASM) dan lulusan kursus aquatic therapy IATF. Berpengalaman dalam riset kuasi-eksperimen, mixed methods, SLR, dan scoping review tentang cooperative learning dan tata kelola olahraga digital.</p>
       <p class="intro" data-l="en">Physical education graduate (Cum Laude, GPA 3.96) and Fast Track master's student in Sport Management at Universitas Pendidikan Indonesia. Founder of Twenty Swim, a multi-branch swim school with 1,000+ students in West Java, and an aquatic therapist holding international hydrotherapy certifications (AASM) and IATF aquatic therapy course completion. Experienced in quasi-experimental, mixed-methods, SLR, and scoping review research on cooperative learning and digital sport governance.</p>
       <div class="cta-row">
-        <a href="#layanan" class="btn btn-primary" data-scroll><span data-l="id">Lihat Layanan</span><span data-l="en">View Services</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#layanan" class="btn btn-primary" data-scroll><span data-l="id">Lihat Layanan</span><span data-l="en">View Services</span></a>
         <a href="#kontak" class="btn" data-scroll><span data-l="id">Hubungi Saya</span><span data-l="en">Contact Me</span></a>
-        <a href="#" class="btn" id="cv-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span data-l="id">Unduh CV</span><span data-l="en">Download CV</span></a>
+        <a href="#" class="btn" id="cv-btn"><span data-l="id">Unduh CV</span><span data-l="en">Download CV</span></a>
       </div>
     </div>
     <figure class="portrait" style="margin:0">
@@ -466,14 +461,12 @@ footer .muted{color:var(--dark-muted)}
     </div>
     <div class="grid g3">
       <article class="card svc rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 17c2 0 2-1.5 4-1.5S8 17 10 17s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M2 21c2 0 2-1.5 4-1.5S8 21 10 21s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><circle cx="16" cy="6" r="2"/><path d="M5 13l5-5 3 3 3-1"/></svg></div>
         <span class="sub">Twenty Swim</span>
         <h3>Swimming Coaching</h3>
         <p><span data-l="id">Program renang berjenjang berbasis kurikulum SSI untuk bayi, anak, hingga dewasa, di cabang Bandung, Cimahi, Sukabumi, dan Cianjur.</span><span data-l="en">Progressive swim programs based on the SSI curriculum for babies, children, and adults, at branches in Bandung, Cimahi, Sukabumi, and Cianjur.</span></p>
         <div class="chips"><span>Baby Swim</span><span>Swim Team Prep</span><span>SSI</span></div>
       </article>
       <article class="card svc rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></div>
         <span class="sub">Twenty Hydro</span>
         <h3>Aquatic Therapy &amp; Hydrotherapy</h3>
         <p><span data-l="id">Program terapi air multi-sesi untuk kasus stroke, HNP/OA, CTS, dan nyeri kompleks, dengan evaluasi menggunakan instrumen formal.</span><span data-l="en">Multi-session aquatic therapy programs for stroke, HNP/OA, CTS, and complex pain cases, evaluated with formal instruments.</span></p>
@@ -481,29 +474,24 @@ footer .muted{color:var(--dark-muted)}
         <div class="chips" style="margin-top:0;padding-top:0"><span>Halliwick/WST</span><span>Bad Ragaz Ring Method</span><span>Clinical Ai Chi</span><span>Aqua-T-Relax</span></div>
       </article>
       <article class="card svc rv">
-        <span class="soon"><span data-l="id">Segera Hadir</span><span data-l="en">Coming Soon</span></span>
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><path d="M12 8v6M8 22l4-8 4 8M6 11l6-1 6 1"/></svg></div>
-        <span class="sub">Twenty Move</span>
+        <div class="svc-top"><span class="sub">Twenty Move</span><span class="soon"><span data-l="id">Segera Hadir</span><span data-l="en">Coming Soon</span></span></div>
         <h3><span data-l="id">Stimulasi Motorik Anak</span><span data-l="en">Children's Motor Stimulation</span></h3>
         <p><span data-l="id">Program stimulasi gerak untuk anak. Informasi lengkap segera hadir.</span><span data-l="en">A movement stimulation program for children. Details coming soon.</span></p>
         <div class="chips"><span><span data-l="id">Motorik anak</span><span data-l="en">Motor skills</span></span></div>
       </article>
       <article class="card svc rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 5-6"/></svg></div>
         <span class="sub"><span data-l="id">Riset</span><span data-l="en">Research</span></span>
         <h3><span data-l="id">Konsultasi Riset &amp; Metodologi</span><span data-l="en">Research &amp; Methodology Consulting</span></h3>
         <p><span data-l="id">Pendampingan desain penelitian, penyusunan tinjauan literatur, validasi instrumen, dan analisis data.</span><span data-l="en">Support with research design, literature reviews, instrument validation, and data analysis.</span></p>
         <div class="chips"><span><span data-l="id">Kuasi-eksperimen</span><span data-l="en">Quasi-experimental</span></span><span>Mixed methods</span><span>SLR</span><span>Scoping review PRISMA-ScR</span><span><span data-l="id">Validasi instrumen</span><span data-l="en">Instrument validation</span></span><span>SPSS</span></div>
       </article>
       <article class="card svc rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
         <span class="sub"><span data-l="id">Edukasi</span><span data-l="en">Education</span></span>
         <h3><span data-l="id">Pembicara &amp; Workshop</span><span data-l="en">Speaking &amp; Workshops</span></h3>
         <p><span data-l="id">Materi seputar pendidikan jasmani, akuatik, terapi air, dan manajemen olahraga. Pernah menjadi oral presenter di ICSDP 2025.</span><span data-l="en">Topics in physical education, aquatics, aquatic therapy, and sport management. Oral presenter at ICSDP 2025.</span></p>
         <div class="chips"><span>Seminar</span><span>Workshop</span><span><span data-l="id">Konferensi</span><span data-l="en">Conference</span></span></div>
       </article>
       <article class="card svc rv">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></div>
         <span class="sub"><span data-l="id">Manajemen</span><span data-l="en">Management</span></span>
         <h3><span data-l="id">Pengembangan Operasional Bisnis Olahraga</span><span data-l="en">Sport Business Operations</span></h3>
         <p><span data-l="id">Berbagi pengalaman membangun operasional multi-cabang: SDM dan penggajian, kemitraan venue, manajemen event, dan pemasaran digital.</span><span data-l="en">Sharing experience in building multi-branch operations: HR and payroll, venue partnerships, event management, and digital marketing.</span></p>
@@ -695,9 +683,7 @@ footer .muted{color:var(--dark-muted)}
         <p class="muted"><span data-l="id">Kirim pesan langsung lewat WhatsApp. Sebutkan nama dan keperluan Anda: kelas renang, terapi air, konsultasi riset, pembicara, atau kemitraan.</span><span data-l="en">Message me directly on WhatsApp. Include your name and what you need: swim classes, aquatic therapy, research consulting, speaking, or partnerships.</span></p>
         <p class="wa-num">+62 858-9277-5730</p>
         <div class="wa-actions">
-          <a class="btn btn-wa" href="https://wa.me/6285892775730" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
-            <span data-l="id">Chat via WhatsApp</span><span data-l="en">Chat on WhatsApp</span></a>
+          <a class="btn btn-wa" href="https://wa.me/6285892775730" target="_blank" rel="noopener"><span data-l="id">Chat via WhatsApp</span><span data-l="en">Chat on WhatsApp</span></a>
           <button class="copy" data-copy="+62 858-9277-5730"><span data-l="id">Salin nomor</span><span data-l="en">Copy number</span></button>
         </div>
       </div>
@@ -721,11 +707,11 @@ footer .muted{color:var(--dark-muted)}
         <div class="stay">
           <h4><span data-l="id">Tetap terhubung</span><span data-l="en">Stay connected</span></h4>
           <div class="stay-icons">
-            <a href="https://www.instagram.com/twentyswim/" target="_blank" rel="noopener" aria-label="Instagram @twentyswim" title="@twentyswim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-            <a href="https://www.instagram.com/mrbayu.aqua/" target="_blank" rel="noopener" aria-label="Instagram @mrbayu.aqua" title="@mrbayu.aqua"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-            <a href="https://www.tiktok.com/@mrbayu.aqua" target="_blank" rel="noopener" aria-label="TikTok @mrbayu.aqua" title="TikTok @mrbayu.aqua"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.2 1.7 3.8 4 4v3.2c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.3a2.8 2.8 0 1 0 1.8 2.6V3z"/></svg></a>
-            <a href="https://www.linkedin.com/in/bayu-rizki-alfarizi-3b282327a" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3s-2.12 1.43-2.12 2.9V21H9z"/></svg></a>
-            <a href="https://orcid.org/0009-0003-2232-0830" target="_blank" rel="noopener" aria-label="ORCID" title="ORCID">iD</a>
+            <a href="https://www.instagram.com/twentyswim/" target="_blank" rel="noopener">Instagram @twentyswim</a>
+            <a href="https://www.instagram.com/mrbayu.aqua/" target="_blank" rel="noopener">Instagram @mrbayu.aqua</a>
+            <a href="https://www.tiktok.com/@mrbayu.aqua" target="_blank" rel="noopener">TikTok @mrbayu.aqua</a>
+            <a href="https://www.linkedin.com/in/bayu-rizki-alfarizi-3b282327a" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://orcid.org/0009-0003-2232-0830" target="_blank" rel="noopener">ORCID</a>
           </div>
         </div>
       </aside>
@@ -742,11 +728,11 @@ footer .muted{color:var(--dark-muted)}
       <p class="muted" style="margin-top:6px;font-size:13px">© 2026 Bayu Rizki Alfarizi</p>
     </div>
     <div class="socials">
-      <a href="https://www.instagram.com/twentyswim/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@twentyswim</a>
-      <a href="https://www.instagram.com/mrbayu.aqua/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@mrbayu.aqua</a>
-      <a href="https://www.tiktok.com/@mrbayu.aqua" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.2 1.7 3.8 4 4v3.2c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.3a2.8 2.8 0 1 0 1.8 2.6V3z"/></svg>TikTok @mrbayu.aqua</a>
-      <a href="https://www.linkedin.com/in/bayu-rizki-alfarizi-3b282327a" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3s-2.12 1.43-2.12 2.9V21H9z"/></svg>LinkedIn</a>
-      <a href="https://orcid.org/0009-0003-2232-0830" target="_blank" rel="noopener"><b style="font-family:var(--f-display)">iD</b>ORCID</a>
+      <a href="https://www.instagram.com/twentyswim/" target="_blank" rel="noopener">@twentyswim</a>
+      <a href="https://www.instagram.com/mrbayu.aqua/" target="_blank" rel="noopener">@mrbayu.aqua</a>
+      <a href="https://www.tiktok.com/@mrbayu.aqua" target="_blank" rel="noopener">TikTok @mrbayu.aqua</a>
+      <a href="https://www.linkedin.com/in/bayu-rizki-alfarizi-3b282327a" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://orcid.org/0009-0003-2232-0830" target="_blank" rel="noopener">ORCID</a>
     </div>
   </div>
 </footer>
@@ -1020,7 +1006,6 @@ $("#cred-tabs").addEventListener("click", e => { const b=e.target.closest(".tab"
 // Gallery
 let galFilter = "Semua", galView = [];
 const catLabel = k => lang==="en" ? (KATEGORI_EN[k] || k) : k;
-const camIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>`;
 function renderFilters(){
   $("#gal-filters").innerHTML = ["Semua", ...KATEGORI_GALERI].map(k => {
     const n = k==="Semua" ? GALERI.length : GALERI.filter(g => g.kategori===k).length;
@@ -1031,7 +1016,7 @@ function renderGallery(){
   galView = GALERI.filter(g => galFilter==="Semua" || g.kategori===galFilter);
   $("#gallery").innerHTML = galView.map((g,i) => `
     <button class="ph" data-i="${i}" aria-label="${L(UI.enlarge)}: ${esc(g.judul)}">
-      ${g.src ? `<img src="${esc(g.src)}" alt="${esc(g.judul)}" loading="lazy">` : `<span class="ph-empty">${camIcon}<small>${esc(catLabel(g.kategori))}<br>${L(UI.phEmpty)}</small></span>`}
+      ${g.src ? `<img src="${esc(g.src)}" alt="${esc(g.judul)}" loading="lazy">` : `<span class="ph-empty"><small>${esc(catLabel(g.kategori))}<br>${L(UI.phEmpty)}</small></span>`}
       <span class="cap">${esc(g.judul)}</span>
     </button>`).join("");
 }
