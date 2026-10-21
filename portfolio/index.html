@@ -224,7 +224,17 @@ section{padding-block:72px}
 .cred-group h3{font-size:13px;font-family:var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:8px 0 12px}
 .cred-list{display:grid;gap:10px}
 @media (min-width:800px){.cred-list{grid-template-columns:repeat(2,1fr)}}
-.cred{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface);display:grid;gap:5px;align-content:start;min-width:0}
+.cred{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--surface);display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start;min-width:0}
+.cred.has-media{grid-template-columns:minmax(0,1fr) 92px}
+.cred.wide.has-media{grid-template-columns:minmax(0,1fr) 150px}
+.cred-body{display:grid;gap:5px;align-content:start;min-width:0}
+.cred-media{position:relative;display:block;width:100%;aspect-ratio:3/4;max-width:100%;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--soft);cursor:zoom-in}
+.cred-media img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.cred-media:hover img{transform:scale(1.05)}
+.cred-media .more{position:absolute;right:6px;bottom:6px;padding:3px 7px;border-radius:999px;background:var(--ink);color:var(--lime);font:600 11px/1 var(--f-mono)}
+.cred-media.empty{display:grid;place-items:center;padding:8px;text-align:center;cursor:default;border-style:dashed;border-color:#cfd4c8;background:repeating-linear-gradient(135deg,var(--surface) 0 10px,var(--soft) 10px 11px)}
+.cred-media.empty small{font:500 10.5px/1.35 var(--f-mono);color:var(--muted)}
+@media (max-width:480px){.cred.has-media{grid-template-columns:minmax(0,1fr) 76px}.cred.wide.has-media{grid-template-columns:minmax(0,1fr) 96px}}
 .cred.wide{grid-column:1/-1}
 .cred b{font-weight:600;line-height:1.4}
 .cred span{font-size:14px;color:var(--muted)}
@@ -753,7 +763,13 @@ const PUBLIKASI = [
     apa:'Putri, N. A., <strong>Alfarizi, B. R.</strong>, Nurhalim, I., Subagja, N. A., Wahyudi, A., & Parhan, M. (2025). Hubungan integrasi nilai-nilai Islam dengan hasil belajar mahasiswa PGSD Pendidikan Jasmani. <em>DIRASAH, 8</em>(2), 594–603.' }
 ];
 
+// Kotak "foto bukti menyusul" di samping sertifikat yang belum punya foto. Ubah ke false untuk menyembunyikannya.
+const SLOT_FOTO_KOSONG = true;
+
 /* Kredensial (sumber: data terverifikasi dari pemilik).
+   foto = daftar foto bukti untuk sertifikat itu, tampil di samping kartu (klik = perbesar).
+          Contoh: foto:["https://contoh.com/sertifikat-iatf.jpg", "https://contoh.com/kelas-iatf.jpg"]
+          Jangan unggah foto yang memuat nomor ijazah, NIM, tanggal lahir, atau data pribadi lain.
    n = nama (bahasa asli), d = keterangan, s = sorotan, extra = rincian tambahan,
    verify = { url, kode } untuk tombol Verifikasi, wide = kartu selebar penuh. */
 const KREDENSIAL = [
@@ -877,7 +893,8 @@ const UI = {
   copy:{ id:"Salin", en:"Copy" },
   degHint:{ id:"Arahkan kursor atau ketuk gelar untuk melihat kepanjangannya.", en:"Hover over or tap a title to see what it stands for." },
   phEmpty:{ id:"placeholder foto", en:"photo placeholder" },
-  lbEmpty:{ id:'Placeholder · tambahkan "src" di array GALERI', en:'Placeholder · add "src" in the GALERI array' },
+  proofSoon:{ id:"Foto bukti menyusul", en:"Proof photo coming soon" },
+  proofView:{ id:"Lihat foto bukti", en:"View proof photo" },
   enlarge:{ id:"Perbesar", en:"Enlarge" }
 };
 
@@ -949,22 +966,37 @@ function renderResearch(){
     </article>`).join("");
 }
 
-// Credentials: semua kategori tampil sekaligus
-const credItem = it => `
-        <div class="cred${it.wide ? " wide" : ""}">
-          <b>${esc(L(it.n))}</b>
-          ${it.d ? `<span>${esc(L(it.d))}</span>` : ""}
-          ${it.s ? `<span class="star">${esc(L(it.s))}</span>` : ""}
-          ${it.extra ? `<dl class="extra">${it.extra.map(x => `<dt>${esc(L(x.k))}</dt><dd>${esc(L(x.v))}</dd>`).join("")}</dl>` : ""}
-          ${it.verify ? `<div class="verify"><a class="btn btn-primary" href="${esc(it.verify.url)}" target="_blank" rel="noopener">${L(UI.verify)} ↗</a><span class="muted" style="font-size:13px">${L(UI.code)}:</span><code>${esc(it.verify.kode)}</code><button class="copy" data-copy="${esc(it.verify.kode)}">${L(UI.copy)}</button></div>` : ""}
+// Credentials: semua kategori tampil sekaligus; tiap kartu punya kotak foto bukti di samping
+const CRED_INDEX = [];
+const credItem = it => {
+  const fotos = it.foto || [], k = CRED_INDEX.push(it) - 1;
+  const media = fotos.length
+    ? `<button class="cred-media" data-cred="${k}" aria-label="${L(UI.proofView)}: ${esc(L(it.n))}"><img src="${esc(fotos[0])}" alt="" loading="lazy">${fotos.length > 1 ? `<span class="more">+${fotos.length - 1}</span>` : ""}</button>`
+    : (SLOT_FOTO_KOSONG ? `<div class="cred-media empty" aria-hidden="true"><small>${L(UI.proofSoon)}</small></div>` : "");
+  return `
+        <div class="cred${it.wide ? " wide" : ""}${media ? " has-media" : ""}">
+          <div class="cred-body">
+            <b>${esc(L(it.n))}</b>
+            ${it.d ? `<span>${esc(L(it.d))}</span>` : ""}
+            ${it.s ? `<span class="star">${esc(L(it.s))}</span>` : ""}
+            ${it.extra ? `<dl class="extra">${it.extra.map(x => `<dt>${esc(L(x.k))}</dt><dd>${esc(L(x.v))}</dd>`).join("")}</dl>` : ""}
+            ${it.verify ? `<div class="verify"><a class="btn btn-primary" href="${esc(it.verify.url)}" target="_blank" rel="noopener">${L(UI.verify)} ↗</a><span class="muted" style="font-size:13px">${L(UI.code)}:</span><code>${esc(it.verify.kode)}</code><button class="copy" data-copy="${esc(it.verify.kode)}">${L(UI.copy)}</button></div>` : ""}
+          </div>${media}
         </div>`;
+};
 function renderCred(){
+  CRED_INDEX.length = 0;
   $("#cred-panel").innerHTML = KREDENSIAL.map(c => `
     <div class="cred-cat">
       <h3 class="cred-cat-title">${esc(L(c.tab))}</h3>
       ${c.groups.map(g => `<div class="cred-group">${g.grup ? `<h3>${esc(L(g.grup))}</h3>` : ""}<div class="cred-list">${g.items.map(credItem).join("")}</div></div>`).join("")}
     </div>`).join("");
 }
+$("#cred-panel").addEventListener("click", e => {
+  const b = e.target.closest(".cred-media[data-cred]"); if(!b) return;
+  const it = CRED_INDEX[+b.dataset.cred];
+  openLb(it.foto.map(src => ({ src, judul:L(it.n), desc:L(it.d) })), 0, b);
+});
 
 // Gallery (hanya foto yang sudah punya src yang ditampilkan)
 let galFilter = "Semua", galView = [];
@@ -990,16 +1022,24 @@ function renderGallery(){
 }
 $("#gal-filters").addEventListener("click", e => { const b=e.target.closest(".tab"); if(!b) return; galFilter=b.dataset.k; renderFilters(); renderGallery(); });
 
-// Lightbox
-let lbI = 0, lastFocus = null;
+// Lightbox (dipakai galeri dan foto bukti sertifikat)
+let lbI = 0, lbList = [], lastFocus = null;
 const lb = $("#lightbox");
 function showLb(i){
-  lbI = (i + galView.length) % galView.length; const g = galView[lbI];
-  $("#lb-media").innerHTML = g.src ? `<img src="${esc(g.src)}" alt="${esc(g.judul)}">` : `<span class="muted" style="font-family:var(--f-mono);font-size:13px;text-align:center;padding:16px">${esc(catLabel(g.kategori))}<br>${esc(L(UI.lbEmpty))}</span>`;
-  $("#lb-title").textContent = g.judul;
-  $("#lb-desc").textContent = [g.tanggal, catLabel(g.kategori), g.keterangan].filter(Boolean).join(" · ");
+  lbI = (i + lbList.length) % lbList.length; const g = lbList[lbI];
+  $("#lb-media").innerHTML = `<img src="${esc(g.src)}" alt="${esc(g.judul || "")}">`;
+  $("#lb-title").textContent = g.judul || "";
+  $("#lb-desc").textContent = g.desc || "";
+  const multi = lbList.length > 1; $("#lb-prev").style.visibility = $("#lb-next").style.visibility = multi ? "visible" : "hidden";
 }
-$("#gallery").addEventListener("click", e => { const b=e.target.closest(".ph"); if(!b) return; lastFocus=b; showLb(+b.dataset.i); lb.hidden=false; $("#lb-close").focus(); document.body.style.overflow="hidden"; });
+function openLb(list, i, trigger){
+  if(!list.length) return;
+  lbList = list; lastFocus = trigger; showLb(i); lb.hidden = false; $("#lb-close").focus(); document.body.style.overflow = "hidden";
+}
+$("#gallery").addEventListener("click", e => {
+  const b = e.target.closest(".ph"); if(!b) return;
+  openLb(galView.map(g => ({ src:g.src, judul:g.judul, desc:[g.tanggal, catLabel(g.kategori), g.keterangan].filter(Boolean).join(" · ") })), +b.dataset.i, b);
+});
 function closeLb(){ lb.hidden=true; document.body.style.overflow=""; lastFocus && lastFocus.focus(); }
 $("#lb-close").onclick = closeLb;
 $("#lb-prev").onclick = () => showLb(lbI-1);
@@ -1007,7 +1047,7 @@ $("#lb-next").onclick = () => showLb(lbI+1);
 lb.addEventListener("click", e => { if(e.target===lb) closeLb(); });
 document.addEventListener("keydown", e => {
   if(lb.hidden) return;
-  if(e.key==="Escape") closeLb(); if(e.key==="ArrowLeft") showLb(lbI-1); if(e.key==="ArrowRight") showLb(lbI+1);
+  if(e.key==="Escape") closeLb(); if(e.key==="ArrowLeft" && lbList.length>1) showLb(lbI-1); if(e.key==="ArrowRight" && lbList.length>1) showLb(lbI+1);
 });
 
 // Copy buttons
