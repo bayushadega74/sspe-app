@@ -145,7 +145,11 @@ section{padding-block:72px}
 .r-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .doi{margin-top:auto;font:500 13px/1.4 var(--f-mono);color:var(--lime-deep);word-break:break-all;text-decoration:none}
 .doi:hover{text-decoration:underline}
-.nodoi{margin-top:auto;font:500 12px/1.4 var(--f-mono);color:var(--muted)}
+.nodoi{font:500 12px/1.4 var(--f-mono);color:var(--muted)}
+.r-links{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.r-links .doi{margin-top:0}
+.pdf-btn{display:inline-flex;align-items:center;font:600 12px/1 var(--f-body);padding:8px 12px;border-radius:999px;background:var(--ink);color:var(--lime);text-decoration:none;white-space:nowrap}
+.pdf-btn:hover{background:#000}
 
 
 /* Feature block (panel hitam) */
@@ -723,26 +727,31 @@ const GELAR = {
 
 // Publikasi (sumber: CV). Urutan = urutan tampil. 4 teratas tampil di Sorotan Riset.
 // doi: isi "10.xxxx/xxxx" bila ada; kosongkan bila tidak ada.
+// pdf: tautan file PDF artikel (mis. Google Drive, akses "Siapa saja yang memiliki link"); kosongkan bila tidak ada.
 const PUBLIKASI = [
   { label:"Proceedings", tahun:2026,
     judul:"Digital service policy implementation at Dispora Jabar: A systematic literature review",
     venue:"Proceedings of The International Conference on Primary and Physical Education (ICOPED) 2026",
     doi:"",
+    pdf:"https://drive.google.com/file/d/1YhYYahXVmnHeQz0qw74KmcYIBmvBwQvk/view?usp=drive_link",
     apa:'Saputra, Y. M., & <strong>Alfarizi, B. R.</strong> (2026). Digital service policy implementation at Dispora Jabar: A systematic literature review. In <em>Proceedings of The International Conference on Primary and Physical Education (ICOPED) 2026</em> (pp. 63–67).' },
   { label:"Published", tahun:2026,
     judul:"Perbandingan efektivitas antara model kooperatif Jigsaw dan TGT dalam meningkatkan keterampilan bermain sepak bola pada siswa sekolah dasar",
     venue:"Gelanggang Olahraga: Jurnal Pendidikan Jasmani dan Olahraga, 9(4)",
     doi:"10.31539/ax350s77",
+    pdf:"https://drive.google.com/file/d/1SQqxn8UNrb3mymy5TKjUpNoAy9p-clF7/view?usp=drive_link",
     apa:'<strong>Alfarizi, B. R.</strong>, Mahendra, A., & Mukhlisin. (2026). Perbandingan efektivitas antara model kooperatif Jigsaw dan TGT dalam meningkatkan keterampilan bermain sepak bola pada siswa sekolah dasar. <em>Gelanggang Olahraga: Jurnal Pendidikan Jasmani dan Olahraga, 9</em>(4), 1518–1531. https://doi.org/10.31539/ax350s77' },
   { label:"Presentation", tahun:2025,
     judul:"A scoping review of sport for development research and practice",
     venue:"Oral presenter, The 10th International Conference of Sport for Development and Peace (ICSDP) 2025, UPI Bandung, 26–27 Nov 2025",
     doi:"",
+    pdf:"",
     apa:'<strong>Alfarizi, B. R.</strong> (2025). A scoping review of sport for development research and practice. Oral presenter, <em>The 10th International Conference of Sport for Development and Peace (ICSDP) 2025</em>, Universitas Pendidikan Indonesia, Bandung, 26–27 November 2025.' },
   { label:"Published", tahun:2025,
     judul:"Hubungan integrasi nilai-nilai Islam dengan hasil belajar mahasiswa PGSD Pendidikan Jasmani",
     venue:"DIRASAH, 8(2)",
     doi:"",
+    pdf:"https://drive.google.com/file/d/16HORtN1X1PeiMO0wl6on2x5Ooacoqkrg/view?usp=drive_link",
     apa:'Putri, N. A., <strong>Alfarizi, B. R.</strong>, Nurhalim, I., Subagja, N. A., Wahyudi, A., & Parhan, M. (2025). Hubungan integrasi nilai-nilai Islam dengan hasil belajar mahasiswa PGSD Pendidikan Jasmani. <em>DIRASAH, 8</em>(2), 594–603.' }
 ];
 
@@ -848,6 +857,7 @@ const UI = {
   noCv:{ id:"Tautan CV belum tersedia.", en:"The CV link is not available yet." },
   noDoi:{ id:"Tanpa DOI", en:"No DOI" },
   copyCite:{ id:"Salin sitasi", en:"Copy citation" },
+  readPdf:{ id:"Baca PDF", en:"Read PDF" },
   verify:{ id:"Verifikasi", en:"Verify" },
   code:{ id:"Kode", en:"Code" },
   copy:{ id:"Salin", en:"Copy" },
@@ -914,7 +924,10 @@ function renderResearch(){
       <div class="r-top"><span class="${badgeCls(p.label)}">${esc(p.label)}</span><span class="year">${p.tahun}</span></div>
       <h3>${esc(p.judul)}</h3>
       <p class="r-meta"><em>${esc(p.venue)}</em></p>
-      ${p.doi ? `<a class="doi" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">DOI ${esc(p.doi)} ↗</a>` : `<span class="nodoi">${L(UI.noDoi)}</span>`}
+      <div class="r-links">
+        ${p.doi ? `<a class="doi" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">DOI ${esc(p.doi)} ↗</a>` : `<span class="nodoi">${L(UI.noDoi)}</span>`}
+        ${p.pdf ? `<a class="pdf-btn" href="${esc(p.pdf)}" target="_blank" rel="noopener">${L(UI.readPdf)} ↗</a>` : ""}
+      </div>
     </article>`).join("");
   $("#pub-list").innerHTML = PUBLIKASI.map((p,i) => `
     <article class="pub">
@@ -923,6 +936,7 @@ function renderResearch(){
       <div class="row">
         <button class="copy" data-copy-from="apa-${i}">${L(UI.copyCite)}</button>
         ${p.doi ? `<a class="doi" style="margin:0" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">https://doi.org/${esc(p.doi)} ↗</a>` : ""}
+        ${p.pdf ? `<a class="pdf-btn" href="${esc(p.pdf)}" target="_blank" rel="noopener">${L(UI.readPdf)} ↗</a>` : ""}
       </div>
     </article>`).join("");
 }
