@@ -150,12 +150,6 @@ section{padding-block:72px}
 .doi:hover{text-decoration:underline}
 .nodoi{margin-top:auto;font:500 12px/1.4 var(--f-mono);color:var(--muted)}
 
-/* Agenda */
-.agenda{display:grid;gap:12px}
-.ag-item{display:grid;grid-template-columns:84px 1fr;gap:18px;align-items:center;padding:18px;border:1px dashed #cfd4c8;border-radius:var(--r);background:var(--surface)}
-.ag-date{text-align:center;border-right:1px solid var(--line);padding-right:12px;font-family:var(--f-mono);color:var(--muted);font-size:12px;line-height:1.5}
-.ag-date b{display:block;font:800 26px/1 var(--f-display);color:var(--ink)}
-.ag-item h3{font-size:17px;margin-bottom:4px}
 
 /* Feature block (panel hitam) */
 .feature{background:var(--dark);color:#fff}
@@ -198,11 +192,6 @@ section{padding-block:72px}
 .banner .btn.ghost{background:transparent;color:var(--lime-ink);border-color:var(--lime-ink)}
 @media (min-width:900px){.banner{padding:56px;grid-template-columns:1.4fr auto;align-items:end}}
 
-/* Testimonials */
-.testi{border-style:dashed;min-height:200px;box-shadow:none}
-.testi blockquote{margin:0;color:var(--muted);font-style:italic}
-.testi .who{margin-top:auto;display:flex;gap:12px;align-items:center}
-.testi .av{width:40px;height:40px;border-radius:50%;background:var(--soft);border:1px dashed #cfd4c8}
 
 /* Boxes */
 .split{display:grid;gap:20px}
@@ -415,25 +404,6 @@ footer .muted{color:var(--dark-muted)}
   </div>
 </section>
 
-<!-- 3. AGENDA -->
-<section id="agenda" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow">Agenda</span>
-      <h2><span data-l="id">Workshop &amp; seminar <em>mendatang</em></span><span data-l="en">Upcoming <em>workshops &amp; seminars</em></span></h2>
-    </div>
-    <div class="agenda">
-      <article class="ag-item rv">
-        <div class="ag-date"><b>--</b><span class="isi">[ISI tgl]</span></div>
-        <div><h3><span class="isi">[ISI: judul workshop/seminar]</span></h3><p class="muted">[ISI: penyelenggara · lokasi/daring · tautan pendaftaran]</p></div>
-      </article>
-      <article class="ag-item rv">
-        <div class="ag-date"><b>--</b><span class="isi">[ISI tgl]</span></div>
-        <div><h3><span class="isi">[ISI: judul workshop/seminar]</span></h3><p class="muted">[ISI: penyelenggara · lokasi/daring · tautan pendaftaran]</p></div>
-      </article>
-    </div>
-  </div>
-</section>
 <div class="lane" aria-hidden="true"></div>
 
 <!-- 4. BLOK UNGGULAN -->
@@ -528,20 +498,6 @@ footer .muted{color:var(--dark-muted)}
   </div>
 </section>
 
-<!-- 7. TESTIMONI -->
-<section id="testimoni" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="eyebrow"><span data-l="id">Testimoni</span><span data-l="en">Testimonials</span></span>
-      <h2><span data-l="id">Kata <em>mereka</em></span><span data-l="en">What <em>people say</em></span></h2>
-    </div>
-    <div class="grid g3">
-      <article class="card testi rv"><blockquote><span class="isi">[ISI: kutipan testimoni asli #1]</span></blockquote><div class="who"><div class="av" aria-hidden="true"></div><div><b class="isi">[ISI: nama]</b><div class="muted" style="font-size:13px">[ISI: peran / institusi]</div></div></div></article>
-      <article class="card testi rv"><blockquote><span class="isi">[ISI: kutipan testimoni asli #2]</span></blockquote><div class="who"><div class="av" aria-hidden="true"></div><div><b class="isi">[ISI: nama]</b><div class="muted" style="font-size:13px">[ISI: peran / institusi]</div></div></div></article>
-      <article class="card testi rv"><blockquote><span class="isi">[ISI: kutipan testimoni asli #3]</span></blockquote><div class="who"><div class="av" aria-hidden="true"></div><div><b class="isi">[ISI: nama]</b><div class="muted" style="font-size:13px">[ISI: peran / institusi]</div></div></div></article>
-    </div>
-  </div>
-</section>
 <div class="lane" aria-hidden="true"></div>
 
 <!-- 8. KOLABORASI -->
@@ -857,8 +813,8 @@ const KREDENSIAL = [
   ]},
   { tab:{ id:"Lisensi Kepelatihan & Perwasitan", en:"Coaching & Officiating Licenses" }, groups:[
     { grup:null, items:[
-      { n:{ id:"Lisensi Pelatih Renang", en:"Swimming Coach License" },
-        d:{ id:"Akuatik Indonesia Pengprov Jawa Barat (Pelatihan Tingkat Madya, Cimahi, Des 2024)", en:"Akuatik Indonesia Pengprov Jawa Barat (Intermediate-level (Madya) Training, Cimahi, Dec 2024)" } },
+      { n:{ id:'Lisensi Pelatih Renang Kategori "C"', en:'Swimming Coach License, Category "C"' },
+        d:{ id:"Akuatik Indonesia Pengprov Jawa Barat · Des 2024", en:"Akuatik Indonesia, West Java Province · Dec 2024" } },
       { n:{ id:'Lisensi Pelatih Renang Kategori "D"', en:'Swimming Coach License, Category "D"' },
         d:{ id:"Akuatik Indonesia Pengcab Karawang · Feb 2024", en:"Akuatik Indonesia Pengcab Karawang · Feb 2024" } },
       { n:{ id:'Lisensi Wasit & Juri Renang Kategori "D"', en:'Swimming Referee & Judge License, Category "D"' },
