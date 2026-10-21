@@ -79,6 +79,7 @@ section{padding-block:72px}
 /* Navbar */
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+@media (max-width:359px){.nav .wrap{gap:6px}.brand{font-size:13px;gap:7px}.brand i{width:7px}.nav-right{gap:5px}.lang button{padding:7px 7px}.burger{width:38px;height:38px}}
 .brand{display:flex;align-items:center;gap:10px;font:800 17px/1 var(--f-display);text-decoration:none;white-space:nowrap}
 .brand i{width:10px;height:26px;background:var(--lime);border-radius:3px;display:block}
 .menu{display:none;gap:2px;list-style:none;margin:0;padding:0}
@@ -103,10 +104,11 @@ section{padding-block:72px}
 .roles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
 .roles span{font:600 12px/1 var(--f-body);letter-spacing:.04em;padding:9px 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--surface)}
 .roles span:first-child{border-color:var(--lime);background:var(--lime);color:var(--lime-ink)}
-.hero-head{position:relative;z-index:1;margin-bottom:28px}
-.hero h1{font-size:clamp(30px,4.9vw,60px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.hero-head{position:relative;z-index:1;margin-bottom:28px;container-type:inline-size}
+/* Nama + gelar selalu satu baris: ukuran huruf mengikuti lebar kolom */
+.hero h1{font-size:min(54px,calc((100vw - 32px) / 23));font-size:min(54px,calc(100cqi / 23));white-space:nowrap;font-weight:800;letter-spacing:-.02em;line-height:1.15}
 .hero h1 .nm,.hero h1 .nw{white-space:nowrap}
-.hero h1{text-wrap:wrap}
+.hero h1{text-wrap:nowrap}
 .creds{color:var(--lime-deep)}
 .deg{font:inherit;letter-spacing:inherit;line-height:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:help;white-space:nowrap;text-decoration:underline dashed;text-decoration-thickness:2px;text-underline-offset:.14em;text-decoration-color:rgba(74,122,6,.45);border-radius:4px}
 .deg:hover,.deg[aria-expanded="true"]{background:var(--lime-soft)}
@@ -1131,6 +1133,17 @@ function setLang(l){
 document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 let saved = "id"; try { saved = localStorage.getItem("lang") || "id"; } catch {}
 setLang(saved);
+
+// Nama + gelar: pastikan selalu muat dalam satu baris (menyesuaikan ukuran huruf)
+function fitName(){
+  const h = $(".hero h1"), box = $(".hero-head"); if(!h || !box) return;
+  const cs = getComputedStyle(box), avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  let fs = 54; h.style.fontSize = fs + "px";
+  for(let i = 0; i < 5 && h.scrollWidth > avail; i++){ fs = fs * avail / h.scrollWidth * 0.995; h.style.fontSize = fs + "px"; }
+}
+fitName();
+addEventListener("resize", fitName);
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitName);
 
 // Scroll reveal (only for elements below the first screen)
 if(!reduce && "IntersectionObserver" in window){
